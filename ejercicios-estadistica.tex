@@ -1,26 +1,29 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
+  spanish,
   a4paper,
 ]{scrreport}
-
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -38,9 +41,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -66,8 +66,7 @@
 \makeatother
 
 
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -79,17 +78,41 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
 
 %\newfontfamily\Ubuntu[Mapping=tex-text]{Ubuntu}
 \usepackage{pgfplots}
@@ -171,7 +194,7 @@
 \theoremstyle{definition}
 \newtheorem{exercise}{Ejercicio}[chapter]
 \theoremstyle{remark}
-\AtBeginDocument{\renewcommand*{\proofname}{Prueba}}
+\AtBeginDocument{\renewcommand*{\proofname}{Demostración}}
 \newtheorem*{remark}{Observación}
 \newtheorem*{solution}{Solución}
 \newtheorem{refremark}{Observación}[chapter]
@@ -183,23 +206,9 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-
-\ifLuaTeX
-\usepackage[bidi=basic]{babel}
-\else
-\usepackage[bidi=default]{babel}
-\fi
-\babelprovide[main,import]{spanish}
-% get rid of language-specific shorthands (see #6817):
-\let\LanguageShortHands\languageshorthands
-\def\languageshorthands#1{}
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Problemas de Estadística},
   pdfauthor={Alfredo Sánchez Alberca},
@@ -215,7 +224,6 @@
 \title{Problemas de Estadística}
 \author{Alfredo Sánchez Alberca}
 \date{2022-01-06}
-
 \begin{document}
 \begin{titlepage}
 
@@ -289,7 +297,7 @@ calcular:
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\) la variable aleatoria que mide el número de trabajadores en
 una muestra de 16 PYMES españolas.
@@ -322,7 +330,7 @@ cuasivarianza muestral del precio de las acciones sea mayor o igual que
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sabemos que \(\frac{ns^2}{\sigma^2}\sim \chi^2(n-1)\). Por tanto,
 \(P(\hat s^2\geq 2.136) = P\left(\frac{16\cdot s^2}{2}\geq 4\cdot 2.136\right) = P\left(\chi^2(15)\geq 8.544\right) = 0.9\).
@@ -340,7 +348,7 @@ al porcentaje de electores favorables a dicho partido en la primera.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X_1\) proporción de votantes favorables al partido en la región
 \(A\) en una muestra de \(100\) electores y \(X_2\) proporción de
@@ -377,7 +385,7 @@ gasto mensual en carne de porcino, y se ha obtenido una media de
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el gasto
 mensual en carne de porcino en una muestra de 20 familias españolas.
@@ -432,7 +440,7 @@ población sigue una distribución normal:
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el peso de
 los niños de 12 años.
@@ -477,7 +485,7 @@ Suponiendo que las ventas de bicicletas siguen una distribución normal:
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide las ventas de
 bicicletas en un año.
@@ -489,7 +497,7 @@ bicicletas en un año.
   \(\mu \in (3621.70, 3678.30)\) con una confianza del \(95\)\%.
 \item
   Usando el intervalo de confianza de la \(\chi^2\) se tiene
-  \(\sigma^2 \in (1512.5, 7006.38)\) con una confianza del \(95\)\%.
+  \(\sigma^2 \in (1677.91, 7006.71)\) con una confianza del \(95\)\%.
 \end{enumerate}
 
 \end{tcolorbox}
@@ -513,7 +521,7 @@ Bitcoin y para ello se ha realizado un muestreo aleatorio simple de
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim B(100, p)\) la variable aleatoria que mide el número de
 españoles que poseen bitcoins.
@@ -525,7 +533,7 @@ españoles que poseen bitcoins.
   \(p \in (0.0801, 0.2199)\) con una confianza del \(95\)\%.
 \item
   Para lograr una semiamplitud del intervalo de \(0.02\) con un nivel de
-  confianza del \(90\)\%, se necesita encuestar a \(n=861\) españoles.
+  confianza del \(90\)\%, se necesita encuestar a \(n=862\) españoles.
 \end{enumerate}
 
 \end{tcolorbox}
@@ -540,7 +548,7 @@ tamaño muestral habría que tomar para doblar la precisión del intervalo?
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim B(500, p)\) la variable aleatoria que mide el número de
 personas infectadas por COVID.
@@ -549,7 +557,7 @@ Usando el intervalo de confianza de la normal se tiene el error en la
 estimación es \(E = 0.0227\), es decir, un \(2.27\)\%.
 
 Para doblar la precisión del intervalo se necesita un tamaño muestral de
-\(n=1993\) personas.
+\(n=2000\) personas.
 
 \end{tcolorbox}
 
@@ -567,7 +575,7 @@ al mes.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim B(50, p)\) la variable aleatoria que mide el número de
 usuarios que utilizan la alta velocidad una vez al mes como mínimo.
@@ -585,7 +593,7 @@ es el tamaño muestral que se ha utilizado para dar esta estimación?
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Usando el intervalo de confianza de la normal se tiene que el tamaño
 muestral necesario para obtener este intervalo para la proporción de
@@ -604,7 +612,7 @@ elecciones?
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(A\sim B(500, p_A)\) la variable aleatoria que mide el número de
 personas que votarían al partido \(A\) y \(B\sim B(1000, p_B)\) la
@@ -615,6 +623,10 @@ Usando el intervalo de confianza de la normal se tiene que el porcentaje
 de voto al partido \(A\) está entre el \(32.04\)\% y el \(37.96\)\% y el
 porcentaje de voto al partido \(B\) está entre el \(35.98\)\% y el
 \(42.02\) con una confianza del \(95\)\%.
+
+No se puede afirmar con un \(95\)\% de confianza que el partido \(B\)
+ganaría las elecciones, ya que los intervalos de confianza para ambos
+partidos se solapan.
 
 \end{tcolorbox}
 
@@ -641,14 +653,17 @@ que la campaña de publicidad ha aumentado las ventas?
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\) la variable aleatoria que mide la diferencia entre el número
 de fármacos vendidos en una farmacia en un mes antes y después de la
 campaña de publicidad.
 
 Usando el intervalo de confianza de la t de Student se tiene que
-\(\mu \in (-1.75, 21.75)\) con una confianza del \(95\)\%.
+\(\mu \in (-0.81, 8.81)\) con una confianza del \(95\)\%. Como el
+intervalo de confianza incluye el \(0\), no existen pruebas suficientes
+para afirmar con un \(95\)\% de confianza que la campaña de publicidad
+ha aumentado las ventas.
 
 \end{tcolorbox}
 
@@ -665,17 +680,17 @@ ingresos mensuales entre las dos ciudades.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X_1\sim N(\mu_1, \sigma_1)\) la variable aleatoria que mide los
 ingresos mensuales de las personas en la primera ciudad y
 \(X_2\sim N(\mu_2, \sigma_2)\) la variable aleatoria que mide los
 ingresos mensuales de las personas en la segunda ciudad.
 
-El intervalo de confianza del \%95\% para el cociente de varianzas es
-\(\frac{\sigma_1 2}{\sigma_2^2}\in (0.6273, 1.2492)\) por lo que podemos
+El intervalo de confianza del \(95\%\) para el cociente de varianzas es
+\(\frac{\sigma_1 2}{\sigma_2^2}\in (0.6036, 1.2883)\) por lo que podemos
 asumir varianzas iguales, y el intervalo de confianza para para la
-diferencia de medias es \(\mu_1-\mu_2\in (-191.20, -108.80)\) con una
+diferencia de medias es \(\mu_1-\mu_2\in (-191.507, -108.493)\) con una
 confianza del \(95\)\%.
 
 \end{tcolorbox}
@@ -685,7 +700,7 @@ confianza del \(95\)\%.
 La siguiente tabla muestra el porcentaje de industrias españolas y
 europeas según el consumo de energía primaria de las mismas durante el
 año 2002 (se estudiaron 1000 industrias españolas y 1000 del resto de
-europa).
+Europa).
 
 \[
 \begin{array}{lcc}
@@ -706,7 +721,7 @@ significativamente diferente del resto de Europa.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Los intervalos de confianza del \(95\)\% para la diferencia de
 proporciones de industrias que usan las diferentes fuentes de energía en
@@ -756,7 +771,7 @@ del \(10\)\% en cada uno de los casos siguientes.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el consumo
 per cápita de azúcar en España.
@@ -787,24 +802,24 @@ per cápita de azúcar en España.
 En una clase de Estadística se ha comprobado que el \(20\)\% del
 alumnado falta a clase. Para disminuir esta preocupante cifra, los
 profesores han incorporado un sistema de evaluación continua que tendrá
-en cuenta las notas de clase de los alumnos en la nota final. Contraste
-con un nivel de significación del \(5\)\% que la incorporación de este
-método no es efectiva, es decir, el absentismo antes y después de la
-evaluación continua es el mismo, sabiendo que el porcentaje medio de no
-asistencia en \(50\) días tomados al azar ha sido del \(17\)\%.
+en cuenta las notas de clase de los alumnos en la nota final. Contrastar
+con un nivel de significación del \(5\)\% si la incorporación de este
+método es efectiva sabiendo que el porcentaje medio de no asistencia en
+\(50\) días tomados al azar ha sido del \(17\)\% con una cuasidesviación
+típica de \(6\)\%. Suponer que la distribución del porcentaje de faltas
+a clase sigue una distribución normal.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
-Sea \(X\sim B(50,p)\) la variable aleatoria que mide el número de días
-que falta un alumno a clase. La hipótesis nula es \(H_0: p=0.2\) y la
-hipótesis alternativa es \(H_1: p\neq 0.2\). Utilizando el contraste
-para la proporción de una población, el estadístico de contraste es
-\(z=-1.5\) y el p-valor es \(p =2 P(Z<-0.53) = 0.298\). Como el p-valor
-es mayor que el nivel de significación \(\alpha = 0.05\), no se rechaza
-la hipótesis nula y se concluye que la incorporación de este método no
-es efectiva.
+Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el porcentaje
+de faltas cada día. La hipótesis nula es \(H_0: \mu=20\) y la hipótesis
+alternativa es \(H_1: \mu<20\). Utilizando el contraste para la media de
+una población normal, el estadístico de contraste es \(t=-3.5355\) y el
+p-valor es \(p =P(t_{49}<-0.3.5355) = 0.0004\). Como el p-valor es menor
+que el nivel de significación \(\alpha = 0.05\), se rechaza la hipótesis
+nula y se concluye que la incorporación de este método es efectiva.
 
 \end{tcolorbox}
 
@@ -821,14 +836,14 @@ significación del \(5\)\%.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el contenido
 de cada paquete de detergente. La hipótesis nula es \(H_0: \mu=2150\) y
 la hipótesis alternativa es \(H_1: \mu\neq 2150\). Utilizando el
 contraste de la t de student, el estadístico de contraste es \(t=-6.77\)
-y el p-valor es \(p =2 P(t(120)<-6.77) = 0.00005\). Como el p-valor es
-menor que el nivel de significación \(\alpha = 0.05\), se rechaza la
+y el p-valor es \(p =2 P(t(120)<-6.77) = 5*10^{-10}\). Como el p-valor
+es menor que el nivel de significación \(\alpha = 0.05\), se rechaza la
 hipótesis nula y se concluye contenido promedio de los paquetes de
 detergente es significativamente diferente de los \(2150\) g declarados
 por la empresa.
@@ -845,7 +860,7 @@ obtenido mejores calificaciones que el resto de los alumnos del curso?
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim B(40,p)\) la variable aleatoria que mide el número de
 aprobados en el grupo. La hipótesis nula es \(H_0: p=0.64\) y la
@@ -874,7 +889,7 @@ Realizar el contraste con un nivel de significación de 0.10.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el consumo
 anual de helado correspondiente a cada español. La hipótesis nula es
@@ -892,7 +907,7 @@ del año pasado.
 
 Telefónica ha constatado que el consumo de datos de los clientes que han
 contratado el paquete Fusión (fibra simétrica, TV, teléfono fijo y
-móvil. sigue una distribución normal cuya dispersión viene determinada
+móvil). sigue una distribución normal cuya dispersión viene determinada
 por \(\sigma\)=\(3\) Gb. Sin embargo, tras la incorporación de Netflix a
 la oferta de Movistar TV se ha observado que la dispersión habría podido
 cambiar, por lo que se ha llevado a cabo un muestreo con \(15\) clientes
@@ -905,7 +920,7 @@ significación del \(2\)\%.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el consumo de
 datos de los clientes que han contratado el paquete Fusión. La hipótesis
@@ -946,7 +961,7 @@ cuasidesviación típica muestral vale \(7\) kg.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide el peso de
 los niños de \(12\) años.
@@ -995,7 +1010,7 @@ del 25\% de los consultados.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim B(400,p)\) la variable aleatoria que mide el número de
 compradores del producto.
@@ -1045,7 +1060,7 @@ igual a \(9\).
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi}.}
@@ -1098,7 +1113,7 @@ aditivo.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\sim N(\mu,\sigma)\) la variable aleatoria que mide la diferencia
 entre la cantidad de CO₂ emitida en la combustión de la gasolina sin
@@ -1124,7 +1139,9 @@ chicos y 59 chicas contestaron que consumían. En vista de estos datos,
 ¿existe alguna diferencia significativa entre las proporciones de chicos
 y chicas que consumen alcohol los fines de semana?
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\end{exercise}
+
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X_H\sim B(63,p_H)\) la variable aleatoria que mide el número de
 chicos que consumen alcohol durante los fines de semana en una muestra
@@ -1156,7 +1173,7 @@ la diferencia entre los ingresos medios.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X_1\sim N(\mu_1, \sigma_1)\) la variable aleatoria que mide los
 ingresos mensuales de las personas en la primera ciudad y
@@ -1238,7 +1255,7 @@ Después \[
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sean \(X\) e \(Y\) las variables que miden el número medio de cigarros
 fumados por hora antes y después de la entrada en vigor de la ley
@@ -1357,7 +1374,7 @@ publicidad ha aumentado las ventas medias.
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X\) la variable aleatoria que mide la diferencia entre el número
 de fármacos vendidos en una farmacia en un mes después y antes de la
@@ -1384,7 +1401,7 @@ favor del partido en las dos ciudades?
 
 \end{exercise}
 
-\begin{tcolorbox}[enhanced jigsaw, colbacktitle=quarto-callout-tip-color!10!white, bottomrule=.15mm, bottomtitle=1mm, rightrule=.15mm, colback=white, left=2mm, opacityback=0, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, leftrule=.75mm, arc=.35mm, titlerule=0mm, coltitle=black, opacitybacktitle=0.6, colframe=quarto-callout-tip-color-frame, breakable, toprule=.15mm, toptitle=1mm]
+\begin{tcolorbox}[enhanced jigsaw, colback=white, titlerule=0mm, toprule=.15mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, bottomtitle=1mm, coltitle=black, toptitle=1mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{Solución}, opacityback=0, colbacktitle=quarto-callout-tip-color!10!white, rightrule=.15mm, breakable, arc=.35mm, leftrule=.75mm, opacitybacktitle=0.6, left=2mm]
 
 Sea \(X_A\sim B(1000,p_A)\) la variable aleatoria que mide el número de
 votos a favor del partido en la ciudad \(A\) y \(X_B\sim B(1000,p_B)\)
@@ -1400,8 +1417,6 @@ hipótesis nula y se concluye que no hay diferencias significativas entre
 las proporciones de votos a favor del partido en las dos ciudades.
 
 \end{tcolorbox}
-
-\end{exercise}
 
 
 

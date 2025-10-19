@@ -105,7 +105,7 @@ Sea $X\sim N(\mu,\sigma)$ la variable aleatoria que mide las ventas de bicicleta
 
 a.  Usando el intervalo de confianza de la t de Student se tiene $\mu \in (3621.70, 3678.30)$ con una confianza del $95$%.
 
-a.  Usando el intervalo de confianza de la $\chi^2$ se tiene $\sigma^2 \in (1512.5, 7006.38)$ con una confianza del $95$%.
+a.  Usando el intervalo de confianza de la $\chi^2$ se tiene $\sigma^2 \in (1677.91, 7006.71)$ con una confianza del $95$%.
 :::
 
 :::{#exr-intervalo-confianza-media-bitcoin}
@@ -122,7 +122,7 @@ Sea $X\sim B(100, p)$ la variable aleatoria que mide el número de españoles qu
 
 a.  Usando el intervalo de confianza de la normal se tiene $p \in (0.0801, 0.2199)$ con una confianza del $95$%.
 
-a.  Para lograr una semiamplitud del intervalo de $0.02$ con un nivel de confianza del $90$%, se necesita encuestar a $n=861$ españoles.
+a.  Para lograr una semiamplitud del intervalo de $0.02$ con un nivel de confianza del $90$%, se necesita encuestar a $n=862$ españoles.
 :::
 
 :::{#exr-intervalo-confianza-proporción-covid}
@@ -135,7 +135,7 @@ Sea $X\sim B(500, p)$ la variable aleatoria que mide el número de personas infe
 
 Usando el intervalo de confianza de la normal se tiene el error en la estimación es $E = 0.0227$, es decir, un $2.27$%. 
 
-Para doblar la precisión del intervalo se necesita un tamaño muestral de $n=1993$ personas.
+Para doblar la precisión del intervalo se necesita un tamaño muestral de $n=2000$ personas.
 :::
 
 :::{#exr-intervalo-confianza-proporción-uso-alta-velocidad}
@@ -168,6 +168,8 @@ En una encuesta realizada a $1000$ personas sobre la intención de voto en unas 
 Sea $A\sim B(500, p_A)$ la variable aleatoria que mide el número de personas que votarían al partido $A$ y $B\sim B(1000, p_B)$ la variable aleatoria que mide el número de personas que votarían al partido $B$ en una muestra de 1000 personas.
 
 Usando el intervalo de confianza de la normal se tiene que el porcentaje de voto al partido $A$ está entre el $32.04$% y el $37.96$% y el porcentaje de voto al partido $B$ está entre el $35.98$% y el $42.02$ con una confianza del $95$%.
+
+No se puede afirmar con un $95$% de confianza que el partido $B$ ganaría las elecciones, ya que los intervalos de confianza para ambos partidos se solapan.
 :::
 
 :::{#exr-intervalo-confianza-ventas-fármaco}
@@ -190,7 +192,7 @@ Obtener la variable diferencia y construir un intervalo de confianza para la med
 ## Solución
 Sea $X$ la variable aleatoria que mide la diferencia entre el número de fármacos vendidos en una farmacia en un mes antes y después de la campaña de publicidad.
 
-Usando el intervalo de confianza de la t de Student se tiene que $\mu \in (-1.75, 21.75)$ con una confianza del $95$%.
+Usando el intervalo de confianza de la t de Student se tiene que $\mu \in (-0.81, 8.81)$ con una confianza del $95$%. Como el intervalo de confianza incluye el $0$, no existen pruebas suficientes para afirmar con un $95$% de confianza que la campaña de publicidad ha aumentado las ventas.
 :::
 
 :::{#exr-intervalo-confianza-comparación-medias-ventas}
@@ -201,12 +203,11 @@ Se ha realizado un estudio para comparar los ingresos medios de las personas de 
 ## Solución
 Sea $X_1\sim N(\mu_1, \sigma_1)$ la variable aleatoria que mide los ingresos mensuales de las personas en la primera ciudad y $X_2\sim N(\mu_2, \sigma_2)$ la variable aleatoria que mide los ingresos mensuales de las personas en la segunda ciudad.
 
-El intervalo de confianza del %95% para el cociente de varianzas es $\frac{\sigma_1 2}{\sigma_2^2}\in (0.6273, 1.2492)$ por lo que podemos asumir varianzas iguales, y el intervalo de confianza para para la diferencia de medias es $\mu_1-\mu_2\in (-191.20, -108.80)$ con una confianza del $95$%.
+El intervalo de confianza del $95\%$ para el cociente de varianzas es $\frac{\sigma_1 2}{\sigma_2^2}\in (0.6036, 1.2883)$ por lo que podemos asumir varianzas iguales, y el intervalo de confianza para para la diferencia de medias es $\mu_1-\mu_2\in (-191.507, -108.493)$ con una confianza del $95$%.
 :::
 
 :::{#exr-intervalo-confianza-comparación-proporciones-emisiones}
-La siguiente tabla muestra el porcentaje de industrias españolas y europeas según el consumo de energía primaria de
-las mismas durante el año 2002 (se estudiaron 1000 industrias españolas y 1000 del resto de europa).
+La siguiente tabla muestra el porcentaje de industrias españolas y europeas según el consumo de energía primaria de las mismas durante el año 2002 (se estudiaron 1000 industrias españolas y 1000 del resto de Europa).
 
 $$
 \begin{array}{lcc}

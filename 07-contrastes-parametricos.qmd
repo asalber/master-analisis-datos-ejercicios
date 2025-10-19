@@ -3,8 +3,6 @@ title: Contrastes de hipótesis paramétricos
 lang: es
 ---
 
-
-
 :::{#exr-contraste-media-consumo-azucar}
 Sabiendo que el año pasado el consumo per cápita de azúcar en España fue de $4.8$ kg y que este consumo sigue una distribución normal, hemos seleccionado aleatoriamente a $20$ españoles obteniendo una media muestral de $5$ kg y una cuasidesviación típica muestral de $0.4$ kg. Contrastar la hipótesis de que el consumo de azúcar per cápita de este año en España no ha variado utilizando un nivel de significación del $10$% en cada uno de los casos siguientes.
 
@@ -24,12 +22,12 @@ a. En este caso, la hipótesis nula es $H_0: \mu=4.8$ y la hipótesis alternativ
 
 
 :::{#exr-contraste-proporcion-asistencia-clase}
-En una clase de Estadística se ha comprobado que el $20$% del alumnado falta a clase. Para disminuir esta preocupante cifra, los profesores han incorporado un sistema de evaluación continua que tendrá en cuenta las notas de clase de los alumnos en la nota final. Contraste con un nivel de significación del $5$% que la incorporación de este método no es efectiva, es decir, el absentismo antes y después de la evaluación continua es el mismo, sabiendo que el porcentaje medio de no asistencia en $50$ días tomados al azar ha sido del $17$%.
+En una clase de Estadística se ha comprobado que el $20$% del alumnado falta a clase. Para disminuir esta preocupante cifra, los profesores han incorporado un sistema de evaluación continua que tendrá en cuenta las notas de clase de los alumnos en la nota final. Contrastar con un nivel de significación del $5$% si la incorporación de este método es efectiva sabiendo que el porcentaje medio de no asistencia en $50$ días tomados al azar ha sido del $17$% con una cuasidesviación típica de $6$%. Suponer que la distribución del porcentaje de faltas a clase sigue una distribución normal.
 :::
 
 :::{.callout-tip collapse="true"}
 ## Solución
-Sea $X\sim B(50,p)$ la variable aleatoria que mide el número de días que falta un alumno a clase. La hipótesis nula es $H_0: p=0.2$ y la hipótesis alternativa es $H_1: p\neq 0.2$. Utilizando el contraste para la proporción de una población, el estadístico de contraste es $z=-1.5$ y el p-valor es $p =2 P(Z<-0.53) = 0.298$. Como el p-valor es mayor que el nivel de significación $\alpha = 0.05$, no se rechaza la hipótesis nula y se concluye que la incorporación de este método no es efectiva.
+Sea $X\sim N(\mu,\sigma)$ la variable aleatoria que mide el porcentaje de faltas cada día. La hipótesis nula es $H_0: \mu=20$ y la hipótesis alternativa es $H_1: \mu<20$. Utilizando el contraste para la media de una población normal, el estadístico de contraste es $t=-3.5355$ y el p-valor es $p =P(t_{49}<-0.3.5355) = 0.0004$. Como el p-valor es menor que el nivel de significación $\alpha = 0.05$, se rechaza la hipótesis nula y se concluye que la incorporación de este método es efectiva.
 :::
 
 :::{#exr-contraste-media-detergente}
@@ -38,7 +36,7 @@ Una empresa fabricante de detergente afirma que el contenido de cada paquete de 
 
 :::{.callout-tip collapse="true"}
 ## Solución
-Sea $X\sim N(\mu,\sigma)$ la variable aleatoria que mide el contenido de cada paquete de detergente. La hipótesis nula es $H_0: \mu=2150$ y la hipótesis alternativa es $H_1: \mu\neq 2150$. Utilizando el contraste de la t de student, el estadístico de contraste es $t=-6.77$ y el p-valor es $p =2 P(t(120)<-6.77) = 0.00005$. Como el p-valor es menor que el nivel de significación $\alpha = 0.05$, se rechaza la hipótesis nula y se concluye contenido promedio de los paquetes de detergente es significativamente diferente de los $2150$ g declarados por la empresa.
+Sea $X\sim N(\mu,\sigma)$ la variable aleatoria que mide el contenido de cada paquete de detergente. La hipótesis nula es $H_0: \mu=2150$ y la hipótesis alternativa es $H_1: \mu\neq 2150$. Utilizando el contraste de la t de student, el estadístico de contraste es $t=-6.77$ y el p-valor es $p =2 P(t(120)<-6.77) = 5*10^{-10}$. Como el p-valor es menor que el nivel de significación $\alpha = 0.05$, se rechaza la hipótesis nula y se concluye contenido promedio de los paquetes de detergente es significativamente diferente de los $2150$ g declarados por la empresa.
 :::
 
 :::{#exr-contraste-proporcion-aprobados}
@@ -66,7 +64,7 @@ Sea $X\sim N(\mu,\sigma)$ la variable aleatoria que mide el consumo anual de hel
 :::
 
 :::{#exr-contraste-varianza-telefonica}
-Telefónica ha constatado que el consumo de datos de los clientes que han contratado el paquete Fusión (fibra simétrica, TV, teléfono fijo y móvil. sigue una distribución normal cuya dispersión viene determinada por $\sigma$=$3$ Gb. Sin embargo, tras la incorporación de Netflix a la oferta de Movistar TV se ha observado que la dispersión habría podido cambiar, por lo que se ha llevado a cabo un muestreo con $15$ clientes en el que la cuasidesviación típica es igual a $3.5$ Gb.
+Telefónica ha constatado que el consumo de datos de los clientes que han contratado el paquete Fusión (fibra simétrica, TV, teléfono fijo y móvil). sigue una distribución normal cuya dispersión viene determinada por $\sigma$=$3$ Gb. Sin embargo, tras la incorporación de Netflix a la oferta de Movistar TV se ha observado que la dispersión habría podido cambiar, por lo que se ha llevado a cabo un muestreo con $15$ clientes en el que la cuasidesviación típica es igual a $3.5$ Gb.
 
 Determine si efectivamente la varianza en el consumo de datos de los clientes Fusión ha cambiado tras la incorporación de Netflix y especifique la región crítica óptima utilizando un nivel de significación del $2$%.
 :::
@@ -93,9 +91,9 @@ Sea $X\sim N(\mu,\sigma)$ la variable aleatoria que mide el peso de los niños d
 
 a.  La hipótesis nula es $H_0: \mu=46.5$ y la hipótesis alternativa es $H_1: \mu> 46.5$. Utilizando el contraste de la t de student, el estadístico de contraste es $t=2.26$ y el p-valor es $p = P(t(39)>2.26) = 0.0147$. Como el p-valor es menor que el nivel de significación $\alpha = 0.05$, se rechaza la hipótesis nula y se concluye que el peso medio de los niños de $12$ años es mayor de $46.5$ kg.
 
-b.  Cuando hay un incremento de al menos $2$ kg en el peso medio de los niños el estadístico del contraste es $t=1.81$, y la potencia del contraste es $1-P(t(39)<1.81) = 0.039$. Esta potencia es muy baja, lo cual indica que es poco probable que esta prueba detecte una diferencia de ese tamaño si realmente existe.
+a.  Cuando hay un incremento de al menos $2$ kg en el peso medio de los niños el estadístico del contraste es $t=1.81$, y la potencia del contraste es $1-P(t(39)<1.81) = 0.039$. Esta potencia es muy baja, lo cual indica que es poco probable que esta prueba detecte una diferencia de ese tamaño si realmente existe.
 
-c.  Para conseguir una potencia del al menos el $80$% se necesita un tamaño muestral de $n=76$ niños.
+a.  Para conseguir una potencia del al menos el $80$% se necesita un tamaño muestral de $n=76$ niños.
 :::
 
 :::{#exr-contraste-proporcion-consumo-producto}
@@ -168,6 +166,7 @@ Utilizando el contraste de la t de student para la comparación de medias en pob
 En un estudio sobre el consumo de alcohol entre los jóvenes durante los fines de semana, se preguntó a 100 chicos y a
 125 chicas, de los que 63 chicos y 59 chicas contestaron que consumían.
 En vista de estos datos, ¿existe alguna diferencia significativa entre las proporciones de chicos y chicas que consumen alcohol los fines de semana?
+:::
 
 :::{.callout-tip collapse="true"}
 ## Solución
@@ -194,8 +193,6 @@ Aplicando el contraste de la t de student para la comparación de medias en dos 
 
 El intervalo de confianza del $95$% para la diferencia entre los ingresos medios es $(-191.51, -108.49)$.
 :::
-
-
 
 :::{#exr-contraste-medias-cigarros}
 Para ver si la ley antitabaco está influyendo en el número de cigarros que se fuman mientras se está en los bares se seleccionó una muestra en la que se midió el número de cigarros fumados por hora mientras se estaba en un bar antes de la entrada en vigor de la ley y otra muestra distinta en la que también se midió el número de cigarros fumados por hora después de la entrada en vigor de la ley (se entiende que con la ley en vigor los cigarros se fuman en el exterior de los bares). Los resultados aparecen en la siguientes tablas:
