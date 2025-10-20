@@ -89,9 +89,9 @@ a.  ¿Qué tamaño muestral sería necesario para conseguir una potencia del al 
 
 Sea $X\sim N(\mu,\sigma)$ la variable aleatoria que mide el peso de los niños de $12$ años.
 
-a.  La hipótesis nula es $H_0: \mu=46.5$ y la hipótesis alternativa es $H_1: \mu> 46.5$. Utilizando el contraste de la t de student, el estadístico de contraste es $t=2.26$ y el p-valor es $p = P(t(39)>2.26) = 0.0147$. Como el p-valor es menor que el nivel de significación $\alpha = 0.05$, se rechaza la hipótesis nula y se concluye que el peso medio de los niños de $12$ años es mayor de $46.5$ kg.
+a.  La hipótesis nula es $H_0: \mu=46.5$ y la hipótesis alternativa es $H_1: \mu> 46.5$. Utilizando el contraste de la t de student, el estadístico de contraste es $t=2.26$ y el p-valor es $p = P(t(39)>2.26) = 0.0147$. Como el p-valor es menor que el nivel de significación $\alpha = 0.05$, se rechaza la hipótesis nula y se concl  uye que el peso medio de los niños de $12$ años es mayor de $46.5$ kg.
 
-a.  Cuando hay un incremento de al menos $2$ kg en el peso medio de los niños el estadístico del contraste es $t=1.81$, y la potencia del contraste es $1-P(t(39)<1.81) = 0.039$. Esta potencia es muy baja, lo cual indica que es poco probable que esta prueba detecte una diferencia de ese tamaño si realmente existe.
+a.  Para nivel de significación $\alpha=0.05$, la frontera entre las regiones de aceptación y rechazo es $48.3648$, la cola de la distribución normal con media $\mu=46.5+2=48.5$ que deja acumulada este valor es $\beta=0.45$, por lo que la potencia del contraste es $1-\beta=0.55$.
 
 a.  Para conseguir una potencia del al menos el $80$% se necesita un tamaño muestral de $n=76$ niños.
 :::
