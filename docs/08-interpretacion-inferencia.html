@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Interpretación de intervalos y contrastes en los medios – Problemas de Estadística</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-contrastes-parametricos.html" rel="prev">
+<link href="./img/logos/favicon.ico" rel="icon">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-33269adcf1721b81efc5ea7fcfe7f0ee.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-5a2acb6f4ed5aeb23a104ba421924b87.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-33940b3b74f16fa390481c4f98a91fca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-5060fabfb1026f921748f42b193c34eb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="3&nbsp; Interpretación de intervalos y contrastes en los medios – Problemas de Estadística">
+<meta property="og:description" content="">
+<meta property="og:image" content="img/logos/sticker.png">
+<meta property="og:site_name" content="Problemas de Estadística">
+<meta name="twitter:title" content="3&nbsp; Interpretación de intervalos y contrastes en los medios – Problemas de Estadística">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="img/logos/sticker.png">
+<meta name="twitter:site" content="@aprendeconalf">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating quarto-dark"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = true;
+    const darkModeDefault = authorPrefersDark;
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./08-interpretacion-inferencia.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Interpretación de intervalos y contrastes en los medios</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./img/logos/aprendeconalf.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="./img/logos/aprendeconalf.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Problemas de Estadística</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://aprendeconalf.es" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-house-fill"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./ejercicios-estadistica.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./ejercicios-estadistica.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <a href="" title="Share" id="quarto-navigation-tool-dropdown-1" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Share"><i class="bi bi-share"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-1">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://twitter.com/intent/tweet?url=|url|">
+              <i class="bi bi-twitter pe-1"></i>
+            Twitter
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="https://www.linkedin.com/sharing/share-offsite/?url=|url|">
+              <i class="bi bi-linkedin pe-1"></i>
+            LinkedIn
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefacio</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-estimacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Estimación de parámetros</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-contrastes-parametricos.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Contrastes de hipótesis paramétricos</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-interpretacion-inferencia.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Interpretación de intervalos y contrastes en los medios</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#contrastes-sobre-una-media" id="toc-contrastes-sobre-una-media" class="nav-link active" data-scroll-target="#contrastes-sobre-una-media"><span class="header-section-number">3.1</span> Contrastes sobre una media</a></li>
+  <li><a href="#contrastes-sobre-una-proporción" id="toc-contrastes-sobre-una-proporción" class="nav-link" data-scroll-target="#contrastes-sobre-una-proporción"><span class="header-section-number">3.2</span> Contrastes sobre una proporción</a></li>
+  <li><a href="#comparación-de-dos-proporciones" id="toc-comparación-de-dos-proporciones" class="nav-link" data-scroll-target="#comparación-de-dos-proporciones"><span class="header-section-number">3.3</span> Comparación de dos proporciones</a></li>
+  <li><a href="#comparación-de-dos-medias" id="toc-comparación-de-dos-medias" class="nav-link" data-scroll-target="#comparación-de-dos-medias"><span class="header-section-number">3.4</span> Comparación de dos medias</a></li>
+  <li><a href="#anova-y-comparaciones-múltiples" id="toc-anova-y-comparaciones-múltiples" class="nav-link" data-scroll-target="#anova-y-comparaciones-múltiples"><span class="header-section-number">3.5</span> ANOVA y comparaciones múltiples</a></li>
+  <li><a href="#intervalos-de-confianza-y-más-comparaciones" id="toc-intervalos-de-confianza-y-más-comparaciones" class="nav-link" data-scroll-target="#intervalos-de-confianza-y-más-comparaciones"><span class="header-section-number">3.6</span> Intervalos de confianza y más comparaciones</a></li>
+  <li><a href="#contrastes-chi-cuadrado" id="toc-contrastes-chi-cuadrado" class="nav-link" data-scroll-target="#contrastes-chi-cuadrado"><span class="header-section-number">3.7</span> Contrastes chi-cuadrado</a></li>
+  <li><a href="#correlación" id="toc-correlación" class="nav-link" data-scroll-target="#correlación"><span class="header-section-number">3.8</span> Correlación</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Interpretación de intervalos y contrastes en los medios</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Los ejercicios de este capítulo parten de noticias reales. El objetivo no es tanto calcular como saber plantear el intervalo o el contraste que hay detrás de cada cifra e interpretar correctamente el resultado.</p>
+<p>Ante cualquier cifra conviene preguntarse:</p>
+<ul>
+<li>Parámetro estimado o contrastado: <em>¿Qué se está estimando? ¿Qué se compara? ¿Con qué se compara?</em></li>
+<li>Tamaño muestral: <em>¿Cuántos casos hay?</em></li>
+<li>Error en la estimación: <em>¿Cuál es el margen de error?</em></li>
+<li>Significación estadística: <em>¿la diferencia es significativa?</em></li>
+<li>Significación práctica: <em>¿Es importante en la práctica?</em></li>
+<li>Causalidad: <em>¿Es causal o solo una asociación?</em></li>
+</ul>
+<section id="contrastes-sobre-una-media" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="contrastes-sobre-una-media"><span class="header-section-number">3.1</span> Contrastes sobre una media</h2>
+<div id="exr-interpretacion-temperatura-corporal" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.1</strong></span> En enero de 2020, un equipo de Stanford publicó en <em>eLife</em> un estudio con unas <span class="math inline">\(677000\)</span> mediciones de temperatura corporal en EE. UU. desde la Guerra Civil hasta 2017. Concluía que la temperatura media de los adultos sanos ha bajado de forma gradual y que ya no es de <span class="math inline">\(37\)</span> ºC, sino que se sitúa en torno a <span class="math inline">\(36.4\)</span>–<span class="math inline">\(36.6\)</span> ºC. Cuando la prensa española recuperó la noticia en 2024, algunos medios escribieron que la referencia histórica era de <span class="math inline">\(36.6\)</span> ºC y que la nueva temperatura normal “ronda los <span class="math inline">\(36\)</span> grados”. Fuentes: <a href="https://med.stanford.edu/news/all-news/2020/01/human-body-temperature-has-decreased-in-united-states.html">Stanford Medicine</a>, <a href="https://kqed.org/science/1954750/youre-cooler-than-you-think-98-6-temperature-no-longer-the-norm">KQED</a>, <a href="https://theobjective.com/sociedad/ciencia/2024-11-14/ciencia-anuncia-temperatura-corporal-normal-no-36-grados/">The Objective</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis que permite decidir si la temperatura media actual es distinta de <span class="math inline">\(37\)</span> ºC.</p></li>
+<li><p>¿Por qué es prácticamente seguro que el contraste resulte significativo?</p></li>
+<li><p>¿Significa eso que hay que cambiar el umbral con el que se diagnostica la fiebre?</p></li>
+<li><p>¿Qué errores contiene la noticia publicada en la prensa española?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sea <span class="math inline">\(X\)</span> la variable aleatoria que mide la temperatura corporal de los adultos sanos y <span class="math inline">\(\mu\)</span> su media.</p>
+<ol type="a">
+<li><p>Se trata de un contraste bilateral para la media: <span class="math inline">\(H_0: \mu=37\)</span> frente a <span class="math inline">\(H_1: \mu\neq 37\)</span>.</p></li>
+<li><p>El error típico de la media muestral es <span class="math inline">\(\sigma/\sqrt{n}\)</span>, y con cientos de miles de mediciones es minúsculo. Cualquier diferencia, por pequeña que sea, produce un estadístico de contraste enorme y un p-valor prácticamente nulo. Con muestras muy grandes casi todo sale significativo.</p></li>
+<li><p>No.&nbsp;Que una diferencia sea estadísticamente significativa no implica que sea importante en la práctica. Una diferencia de unas décimas en la media poblacional es pequeña comparada con la variación individual por edad, sexo, tamaño corporal y hora del día. Los médicos consultados dijeron que no cambiaría la práctica clínica. Además, una media no define qué es “normal” para cada persona.</p></li>
+<li><p>La referencia histórica (Wunderlich) era <span class="math inline">\(37\)</span> ºC, no <span class="math inline">\(36.6\)</span> ºC, y el estudio no habla de <span class="math inline">\(36\)</span> ºC en ningún momento. Es un buen ejemplo de la necesidad de contrastar la noticia con la fuente original.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="contrastes-sobre-una-proporción" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="contrastes-sobre-una-proporción"><span class="header-section-number">3.2</span> Contrastes sobre una proporción</h2>
+<div id="exr-interpretacion-empate-tecnico" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.2</strong></span> En febrero de 2021, Pablo Casado afirmó que el PP estaba en “empate técnico” con el PSOE según la mayoría de encuestas. <a href="https://maldita.es/malditodato/20210220/falso-casado-pp-psoe-empate-tecnico-encuestas/">Maldita.es</a> lo verificó: la diferencia mínima en la media de encuestas era de cuatro puntos, y el error medio histórico de las encuestas en España es de unos dos puntos por partido.</p>
+<p>Supongamos una encuesta de <span class="math inline">\(n=1067\)</span> personas, cuya ficha técnica declara un margen de error de <span class="math inline">\(\pm 3\)</span> puntos, en la que el PSOE obtiene el <span class="math inline">\(28\)</span>% y el PP el <span class="math inline">\(24\)</span>%.</p>
+<ol type="a">
+<li><p>Plantear el contraste adecuado para decidir si la intención de voto de los dos partidos es distinta.</p></li>
+<li><p>¿A qué se refiere exactamente el margen de error de <span class="math inline">\(\pm 3\)</span> puntos de la ficha técnica?</p></li>
+<li><p>Sabiendo que, para dos proporciones <span class="math inline">\(\hat p_1\)</span> y <span class="math inline">\(\hat p_2\)</span> de una misma encuesta, el error típico de la diferencia es <span class="math inline">\(\sqrt{\frac{\hat p_1+\hat p_2-(\hat p_1-\hat p_2)^2}{n}}\)</span>, calcular el margen de error de la diferencia con un <span class="math inline">\(95\)</span>% de confianza. ¿Es significativa una diferencia de <span class="math inline">\(4\)</span> puntos en esta encuesta?</p></li>
+<li><p>Un periodista afirma que, como los intervalos de los dos partidos se solapan, hay empate técnico. ¿Es correcto este razonamiento?</p></li>
+<li><p>¿Qué otras fuentes de error no recoge el margen de error de la ficha técnica?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sean <span class="math inline">\(p_1\)</span> y <span class="math inline">\(p_2\)</span> las proporciones de voto al PSOE y al PP en la población.</p>
+<ol type="a">
+<li><p>Contraste bilateral sobre la diferencia de dos proporciones de la misma muestra: <span class="math inline">\(H_0: p_1=p_2\)</span> frente a <span class="math inline">\(H_1: p_1\neq p_2\)</span>.</p></li>
+<li><p>Es el margen de error de la estimación de la proporción de <strong>cada partido por separado</strong> y en el peor caso (<span class="math inline">\(p=0.5\)</span>): <span class="math inline">\(1.96\sqrt{0.25/1067}\approx 0.03\)</span>.</p></li>
+<li><p>El margen de error de la diferencia es <span class="math inline">\(1.96\sqrt{\frac{0.28+0.24-0.04^2}{1067}}\approx 0.043\)</span>, es decir, unos <span class="math inline">\(4.3\)</span> puntos. Es mayor que el margen de cada partido, pero menor que el doble (<span class="math inline">\(6\)</span> puntos). En esta encuesta aislada una diferencia de <span class="math inline">\(4\)</span> puntos no sería significativa al <span class="math inline">\(5\)</span>%. Sin embargo, en la noticia la diferencia de cuatro puntos era la <strong>mínima en la media de muchas encuestas</strong>, que es mucho más precisa que una sola, y por tanto sí era una diferencia sustancial. Hablar de “empate técnico” era incorrecto.</p></li>
+<li><p>No.&nbsp;Que los intervalos de confianza de dos proporciones se solapen no implica automáticamente que la diferencia no sea significativa; hay que construir el intervalo o el contraste para la diferencia. El error contrario también es frecuente: decir que un partido “lidera” cuando la diferencia está dentro del margen de error.</p></li>
+<li><p>El margen de error solo cubre el error de muestreo aleatorio. No incluye los sesgos de no respuesta, el voto oculto ni el modelo de estimación de voto, que en España suelen ser mayores.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-paro-epa" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.3</strong></span> Según <a href="https://www.eldiario.es/economia/rumano-hombre-depende-suba-espana_1_5739925.amp.html">elDiario.es</a>, la nota de prensa del INE presenta las cifras de la EPA como cerradas, sin mencionar su margen de error. En uno de los trimestres analizados la EPA estimó <span class="math inline">\(6202700\)</span> parados, con un error de muestreo (coeficiente de variación) del <span class="math inline">\(0.86\)</span>%. Los errores de muestreo están publicados en los <a href="https://ine.es/docutrab/eval_epa/evaluacion_epa19.pdf">informes de evaluación de la EPA</a>.</p>
+<ol type="a">
+<li><p>Calcular el intervalo de confianza del <span class="math inline">\(95\)</span>% para el número de parados.</p></li>
+<li><p>Plantear el contraste que permite decidir si el paro ha cambiado entre dos trimestres.</p></li>
+<li><p>Un medio titula “El paro baja en 40000 personas” a partir de esta estimación. ¿Está justificado el titular?</p></li>
+<li><p>¿Por qué el problema es mucho más grave cuando se informa del paro de una comunidad autónoma pequeña o de un colectivo concreto?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>El error típico de la estimación es <span class="math inline">\(0.0086\cdot 6202700\approx 53343\)</span> parados, así que el margen de error del <span class="math inline">\(95\)</span>% es <span class="math inline">\(1.96\cdot 53343\approx 104553\)</span> parados. El intervalo de confianza es aproximadamente <span class="math inline">\((6098000, 6307000)\)</span> parados.</p></li>
+<li><p>Llamando <span class="math inline">\(p_1\)</span> y <span class="math inline">\(p_2\)</span> a las tasas de paro de los dos trimestres, <span class="math inline">\(H_0: p_1=p_2\)</span> (el paro no ha cambiado) frente a <span class="math inline">\(H_1: p_1\neq p_2\)</span> (ha cambiado).</p></li>
+<li><p>No.&nbsp;Una variación de <span class="math inline">\(40000\)</span> parados es mucho menor que el margen de error de cada estimación, por lo que es compatible con que no haya habido ningún cambio real en el paro. El titular presenta como un hecho algo que podría ser solo error de muestreo.</p></li>
+<li><p>Porque la muestra de una comunidad pequeña o de un colectivo concreto es mucho menor, y el coeficiente de variación de la estimación es mucho mayor. A nivel nacional el margen es estrecho; en una comunidad pequeña la variación trimestral puede ser menor que el propio error de muestreo.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="comparación-de-dos-proporciones" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="comparación-de-dos-proporciones"><span class="header-section-number">3.3</span> Comparación de dos proporciones</h2>
+<div id="exr-interpretacion-vacuna-pfizer" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.4</strong></span> El 18 de noviembre de 2020, Pfizer y BioNTech anunciaron los resultados finales de su ensayo con más de <span class="math inline">\(43000\)</span> voluntarios repartidos en dos grupos de tamaño similar (vacuna y placebo). Hubo <span class="math inline">\(170\)</span> casos de COVID-19: <span class="math inline">\(162\)</span> en el grupo placebo y <span class="math inline">\(8\)</span> en el vacunado. El artículo publicado en el <em>New England Journal of Medicine</em> daba una eficacia del <span class="math inline">\(95\)</span>% con un intervalo de confianza del <span class="math inline">\(95\)</span>% entre el <span class="math inline">\(90.3\)</span>% y el <span class="math inline">\(97.6\)</span>%. Fuentes: <a href="https://www.eluniversal.com.mx/mundo/vacuna-coronavirus-pfizer-dice-que-tiene-una-efectividad-del-95">El Universal (AFP)</a>, <a href="https://english.ahram.org.eg/News/394086.aspx">Reuters vía Ahram</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis adecuado. ¿Debe ser bilateral o unilateral?</p></li>
+<li><p>Sabiendo que la eficacia se define como <span class="math inline">\(1-\frac{\text{riesgo en vacunados}}{\text{riesgo en placebo}}\)</span>, comprobar que la eficacia estimada es del <span class="math inline">\(95\)</span>%.</p></li>
+<li><p>Interpretar correctamente la eficacia del <span class="math inline">\(95\)</span>%. ¿Es correcto decir que “el <span class="math inline">\(5\)</span>% de los vacunados enfermará”?</p></li>
+<li><p>Un tertuliano opina que “con solo <span class="math inline">\(170\)</span> casos el estudio es demasiado pequeño”. ¿Qué le responderías?</p></li>
+<li><p>Explicar el intervalo <span class="math inline">\(90.3\)</span>%–<span class="math inline">\(97.6\)</span>% en una frase apta para un titular, sin usar la palabra “confianza”.</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sean <span class="math inline">\(p_1\)</span> y <span class="math inline">\(p_2\)</span> las proporciones de personas que contraen COVID-19 sintomática entre los vacunados y entre quienes reciben placebo.</p>
+<ol type="a">
+<li><p><span class="math inline">\(H_0: p_1=p_2\)</span> frente a <span class="math inline">\(H_1: p_1&lt;p_2\)</span>. Es un contraste unilateral porque lo que interesa es saber si la vacuna protege.</p></li>
+<li><p>Como los dos grupos tienen un tamaño similar, el cociente de riesgos es aproximadamente el cociente de casos, y la eficacia es <span class="math inline">\(1-8/162\approx 0.95\)</span>.</p></li>
+<li><p>Entre los vacunados, el riesgo de COVID-19 sintomática fue un <span class="math inline">\(95\)</span>% menor que entre los que recibieron placebo, durante el periodo del ensayo. El <span class="math inline">\(95\)</span>% es una reducción <strong>relativa</strong> del riesgo, no un porcentaje de personas. Ni el <span class="math inline">\(95\)</span>% de los vacunados queda protegido ni el <span class="math inline">\(5\)</span>% enfermará: en el ensayo enfermaron <span class="math inline">\(8\)</span> de unos <span class="math inline">\(21500\)</span> vacunados.</p></li>
+<li><p>Que la precisión de la estimación depende sobre todo del número de casos (eventos), no solo del número de participantes. Con <span class="math inline">\(170\)</span> casos tan desequilibrados el intervalo de confianza publicado es estrecho, y el contraste resulta claramente significativo.</p></li>
+<li><p>Por ejemplo: “La vacuna reduce el riesgo de COVID sintomática entre un <span class="math inline">\(90\)</span>% y un <span class="math inline">\(98\)</span>%, según el ensayo”. El intervalo recoge los valores de la eficacia que son compatibles con los datos.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-mascarillas" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.5</strong></span> En noviembre de 2020, <em>Annals of Internal Medicine</em> publicó el ensayo danés DANMASK-19 con unas <span class="math inline">\(6000\)</span> personas repartidas en dos grupos de unas <span class="math inline">\(3000\)</span>. Se infectó el <span class="math inline">\(1.8\)</span>% del grupo al que se recomendó llevar mascarilla y el <span class="math inline">\(2.1\)</span>% del grupo control. El estudio estaba diseñado para detectar una reducción del riesgo a la mitad, se hizo cuando casi nadie llevaba mascarilla en Dinamarca y menos de la mitad de los participantes la usó correctamente. Varios artículos difundidos en redes titularon que “las mascarillas no funcionan”. Fuentes: <a href="https://www.t13.cl/noticia/mundo/estudio-uso-mascarilla-tiene-poco-efecto-protegerse-del-coronavirus">T13 (AFP)</a>, <a href="https://www.acponline.org/acp-newsroom/denmark-trial-measures-effectiveness-of-adding-a-mask-recommendation-to-other-public-health-measures">American College of Physicians</a>, <a href="https://www.factcheck.org/2020/11/danish-study-doesnt-prove-masks-dont-work-against-the-coronavirus">FactCheck.org</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis adecuado.</p></li>
+<li><p>Calcular el estadístico de contraste y el p-valor. ¿Es significativa la diferencia al <span class="math inline">\(5\)</span>%?</p></li>
+<li><p>¿Está justificado el titular “las mascarillas no funcionan”?</p></li>
+<li><p>¿Qué papel juega la potencia del contraste en este estudio?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sean <span class="math inline">\(p_1\)</span> y <span class="math inline">\(p_2\)</span> las proporciones de infectados en el grupo con mascarilla y en el grupo control.</p>
+<ol type="a">
+<li><p><span class="math inline">\(H_0: p_1=p_2\)</span> frente a <span class="math inline">\(H_1: p_1&lt;p_2\)</span>.</p></li>
+<li><p>La proporción conjunta es <span class="math inline">\(\hat p=0.0195\)</span> y el estadístico de contraste es <span class="math display">\[z=\frac{0.018-0.021}{\sqrt{0.0195\cdot 0.9805\left(\frac{1}{3000}+\frac{1}{3000}\right)}}\approx -0.84,\]</span> con p-valor <span class="math inline">\(P(Z&lt;-0.84)\approx 0.2\)</span>. Como es mayor que <span class="math inline">\(\alpha=0.05\)</span>, no se rechaza la hipótesis nula: la diferencia no es significativa.</p></li>
+<li><p>No.&nbsp;“No significativo” no significa “no hay efecto”, sino que los datos son compatibles tanto con un efecto pequeño como con ninguno. Los propios editores resumieron que el estudio descarta un efecto protector grande, apoya débilmente efectos menores y no puede descartar que no haya efecto. Además, el estudio solo evaluaba la protección de quien lleva la mascarilla, no la de los demás.</p></li>
+<li><p>El estudio solo tenía potencia suficiente para detectar una reducción del riesgo a la mitad. Para efectos más pequeños, la probabilidad de rechazar <span class="math inline">\(H_0\)</span> aunque el efecto exista es baja, es decir, la probabilidad de cometer un error de tipo II es alta. No rechazar la hipótesis nula con un contraste de poca potencia aporta muy poca información.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-carne-procesada" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.6</strong></span> En octubre de 2015, la Agencia Internacional de Investigación sobre el Cáncer (IARC) de la OMS clasificó la carne procesada como carcinógena, en el mismo grupo que el tabaco, tras revisar más de <span class="math inline">\(800\)</span> estudios. Según su informe, cada <span class="math inline">\(50\)</span> gramos diarios de carne procesada aumentan el riesgo de cáncer colorrectal un <span class="math inline">\(18\)</span>%. Fuentes: <a href="https://cdn.agenciasinc.es/print/93530">SINC</a>, <a href="https://www.cooperativa.cl/noticias/site/artic/20151026/pags-amp/20151026102415.html">Cooperativa</a>, <a href="https://www.ultimahora.es/noticias/sociedad/2023/02/13/1877819/par-salchichas-semana-aumentan-riesgo-cancer.html">Última Hora</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis en términos del riesgo relativo.</p></li>
+<li><p>Sabiendo que el riesgo de cáncer colorrectal a lo largo de la vida es de aproximadamente un <span class="math inline">\(5\)</span>%, calcular el riesgo para quienes comen <span class="math inline">\(50\)</span> gramos diarios de carne procesada. ¿Cuál es el aumento del riesgo absoluto?</p></li>
+<li><p>¿Es correcto decir que la carne procesada es tan peligrosa como el tabaco?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Si <span class="math inline">\(RR\)</span> es el cociente entre el riesgo de cáncer colorrectal de quienes comen carne procesada a diario y el de quienes no la comen, <span class="math inline">\(H_0: RR=1\)</span> frente a <span class="math inline">\(H_1: RR&gt;1\)</span>.</p></li>
+<li><p>El riesgo pasa de un <span class="math inline">\(5\)</span>% a <span class="math inline">\(5\cdot 1.18\approx 5.9\)</span>%, es decir, a aproximadamente un <span class="math inline">\(6\)</span>%. El aumento absoluto es de alrededor de <span class="math inline">\(1\)</span> punto porcentual, no de <span class="math inline">\(18\)</span> puntos. El riesgo individual sigue siendo pequeño, como subrayó el propio jefe del programa de la IARC.</p></li>
+<li><p>No.&nbsp;El grupo de clasificación indica la solidez de la evidencia de que hay un efecto, no el tamaño del riesgo. El aumento del riesgo de cáncer de pulmón asociado al tabaco es enormemente mayor.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-paradoja-simpson" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.7</strong></span> En agosto de 2021, de los <span class="math inline">\(515\)</span> pacientes ingresados por COVID-19 en Israel, <span class="math inline">\(301\)</span> estaban vacunados con dos dosis. El dato se difundió en redes como prueba de que las vacunas no funcionaban. Sin embargo, al separar por grupos de edad, la tasa de hospitalización era menor en los vacunados dentro de cada grupo. Fuentes: <a href="https://maldita.es/malditateexplica/20210908/paradoja-simpson-malinterpretar-datos-vacunas-covid/">Maldita.es</a>, <a href="https://maldita.es/malditaciencia/20211008/muertes-covid-19-reino-unido-vacunados">Maldita.es (bulo de Reino Unido)</a>, <a href="https://theobjective.com/sociedad/ciencia/2021-12-05/efectividad-vacunal-hospitalizados-paradoja-simpson/">The Objective</a>.</p>
+<ol type="a">
+<li><p>Calcular el porcentaje de vacunados entre los hospitalizados.</p></li>
+<li><p>¿Qué proporciones habría que comparar para saber si los vacunados se hospitalizan más o menos que los no vacunados? Plantear el contraste.</p></li>
+<li><p>¿Cómo es posible que la mayoría de los hospitalizados estén vacunados y que, aun así, la vacuna reduzca el riesgo de hospitalización en todos los grupos de edad?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p><span class="math inline">\(301/515\approx 0.584\)</span>, es decir, el <span class="math inline">\(58.4\)</span>% de los hospitalizados estaba vacunado.</p></li>
+<li><p>Hay que comparar <strong>tasas</strong>, no recuentos: la proporción de hospitalizados entre los vacunados, <span class="math inline">\(p_1\)</span>, y entre los no vacunados, <span class="math inline">\(p_2\)</span>. El contraste es <span class="math inline">\(H_0: p_1=p_2\)</span> frente a <span class="math inline">\(H_1: p_1&lt;p_2\)</span>, y debe hacerse dentro de grupos comparables (por ejemplo, por grupos de edad).</p></li>
+<li><p>Es la paradoja de Simpson. La mayoría de la población, y sobre todo los mayores, estaba vacunada, y los mayores son los que más se hospitalizan. La edad está relacionada tanto con la vacunación como con la hospitalización, de modo que al agregar los grupos la comparación se invierte. Un ejemplo clásico es el de las admisiones de la Universidad de Berkeley en 1973: en conjunto se admitía a menos mujeres, pero departamento a departamento la diferencia desaparecía.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="comparación-de-dos-medias" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="comparación-de-dos-medias"><span class="header-section-number">3.4</span> Comparación de dos medias</h2>
+<div id="exr-interpretacion-power-posing" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.8</strong></span> En 2010, Carney, Cuddy y Yap publicaron un estudio con unas <span class="math inline">\(40\)</span> personas en el que mantener dos minutos una “postura de poder” subía la testosterona, bajaba el cortisol y aumentaba la tolerancia al riesgo, frente a una postura sumisa. La charla TED de Amy Cuddy (2012) superó las decenas de millones de visualizaciones. Una replicación con <span class="math inline">\(200\)</span> personas no encontró efecto en hormonas ni conducta, y en 2016 la coautora Dana Carney declaró públicamente que no cree que el efecto sea real. Fuentes: <a href="https://www.scientificamerican.com/podcast/episode/power-poses-dont-stand-up">Scientific American</a>, <a href="https://www.thenationalnews.com/uae/rise-of-the-zombie-facts-1.66288">The National</a>, <a href="https://develop-plus.bigthink.com/?p=52729">Big Think</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis del estudio original para la testosterona.</p></li>
+<li><p>¿Por qué un único estudio pequeño con un p-valor cercano a <span class="math inline">\(0.05\)</span> debe considerarse una pista y no una prueba?</p></li>
+<li><p>¿Por qué la replicación es más fiable que el estudio original?</p></li>
+<li><p>¿Qué preguntas debería hacerse un periodista antes de cubrir un estudio con <span class="math inline">\(40\)</span> participantes?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Llamando <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span> a las medias de testosterona tras la postura de poder y tras la postura sumisa, se trata de un contraste de comparación de medias de dos poblaciones independientes: <span class="math inline">\(H_0: \mu_1=\mu_2\)</span> frente a <span class="math inline">\(H_1: \mu_1&gt;\mu_2\)</span>.</p></li>
+<li><p>Con muestras pequeñas el contraste tiene poca potencia, y los resultados significativos que se obtienen tienden a sobrestimar el efecto o a ser falsos positivos. Un p-valor cercano a <span class="math inline">\(0.05\)</span> indica que los datos serían algo raros si <span class="math inline">\(H_0\)</span> fuera cierta, pero no mucho. Además, los resultados significativos se publican y difunden más que los no significativos (sesgo de publicación).</p></li>
+<li><p>Porque tiene una muestra cinco veces mayor, lo que reduce el error típico de la diferencia de medias y aumenta la potencia del contraste. Si el efecto existiera con el tamaño del estudio original, la replicación tendría una probabilidad alta de detectarlo. En la replicación la postura sí hacía que la gente dijera sentirse más poderosa, pero no cambiaba hormonas ni conducta.</p></li>
+<li><p>¿Cuántos participantes hay?, ¿cuál es el tamaño del efecto y su intervalo de confianza?, ¿se ha replicado?, ¿cuántas variables se midieron?, ¿estaba el análisis registrado de antemano? Presentar un único estudio pequeño como “la ciencia demuestra” es un error frecuente.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-pisa" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.9</strong></span> Cada edición de PISA genera titulares que ordenan países y comunidades autónomas por su puntuación media. Ya en 2007, un <a href="https://www.uv.es/valerop/Docencia/Anadatos/Introduccion/interpretacionPISA.pdf">artículo en El País</a> advertía de que muchas diferencias entre comunidades son atribuibles al error de muestreo.</p>
+<p>Supongamos que la comunidad A obtiene una puntuación media de <span class="math inline">\(485\)</span> puntos con un error típico de <span class="math inline">\(3.5\)</span> y la comunidad B obtiene <span class="math inline">\(479\)</span> puntos con un error típico de <span class="math inline">\(4\)</span>.</p>
+<ol type="a">
+<li><p>Plantear el contraste adecuado para decidir si las dos comunidades tienen distinta puntuación media.</p></li>
+<li><p>Calcular el estadístico de contraste y el p-valor. ¿Está justificado el titular “A supera a B”?</p></li>
+<li><p>Si la diferencia fuera significativa, ¿se podría atribuir a la política educativa del gobierno de la comunidad A?</p></li>
+<li><p>En PISA 2025, de los <span class="math inline">\(2545\)</span> alumnos catalanes seleccionados, <span class="math inline">\(591\)</span> fueron excluidos y la OCDE decidió que los resultados de Cataluña no son comparables (<a href="https://www.diaridetarragona.com/catalunya/266692/catalunya-queda-fuera-pruebas-pisa-incidencia-tecnica.html">Diari de Tarragona</a>, <a href="https://www.menorca.info/actualidad/nacional/2026/07/29/2679357/ministerio-alerto-generalitat-errores-tecnicos-pruebas-pisa-2025.html">Menorca.info</a>). ¿Qué porcentaje de la muestra se excluyó? ¿Se resolvería el problema aumentando el número de alumnos?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Llamando <span class="math inline">\(\mu_A\)</span> y <span class="math inline">\(\mu_B\)</span> a las puntuaciones medias de las dos comunidades, <span class="math inline">\(H_0: \mu_A=\mu_B\)</span> frente a <span class="math inline">\(H_1: \mu_A\neq\mu_B\)</span>.</p></li>
+<li><p>El error típico de la diferencia es <span class="math inline">\(\sqrt{3.5^2+4^2}\approx 5.32\)</span>, y el estadístico es <span class="math inline">\(z=6/5.32\approx 1.13\)</span>, con p-valor <span class="math inline">\(2P(Z&gt;1.13)\approx 0.26\)</span>. No se rechaza la hipótesis nula: las dos comunidades no se distinguen estadísticamente y el titular no está justificado. La OCDE y el Ministerio publican intervalos de confianza y tablas de comparaciones significativas precisamente para evitar este error.</p></li>
+<li><p>No.&nbsp;PISA es un estudio observacional, no un experimento, y las comunidades difieren en muchos otros factores (renta, nivel educativo de las familias, inmigración, etc.). Un contraste significativo muestra una diferencia, no su causa.</p></li>
+<li><p>Se excluyó el <span class="math inline">\(591/2545\approx 23.2\)</span>% de la muestra. Aumentar el número de alumnos no lo arregla, porque no es un problema de error de muestreo sino de sesgo de selección: si los excluidos son distintos de los que hacen la prueba, la estimación estará sesgada sea cual sea el tamaño de la muestra.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="anova-y-comparaciones-múltiples" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="anova-y-comparaciones-múltiples"><span class="header-section-number">3.5</span> ANOVA y comparaciones múltiples</h2>
+<div id="exr-interpretacion-efecto-mozart" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.10</strong></span> En 1993, Frances Rauscher publicó en <em>Nature</em> un experimento con <span class="math inline">\(36\)</span> universitarios divididos en tres condiciones: <span class="math inline">\(10\)</span> minutos de una sonata de Mozart, instrucciones de relajación o silencio. Después hicieron tareas de razonamiento espacial. Los que escucharon Mozart puntuaron más alto, pero el efecto duró unos <span class="math inline">\(10\)</span>–<span class="math inline">\(15\)</span> minutos. En 1998, el gobernador de Georgia presupuestó <span class="math inline">\(105000\)</span> dólares para regalar discos de música clásica a cada recién nacido. Fuentes: <a href="https://chequeado.com/mitos-y-enganos/mozart/">Chequeado</a>, <a href="https://www.npr.org/2010/06/28/128104580/mozart-effect-was-just-what-we-wanted-to-hear">NPR</a>, <a href="https://www.scientificamerican.com/article/fact-or-fiction-babies-ex/">Scientific American</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis adecuado.</p></li>
+<li><p>Si se rechaza la hipótesis nula, ¿se puede concluir que el grupo de Mozart es el que puntúa más alto?</p></li>
+<li><p>¿A qué población se pueden generalizar los resultados? ¿Está justificado el titular “Mozart hace más inteligentes a los bebés”?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Es un ANOVA de un factor con tres niveles. Llamando <span class="math inline">\(\mu_1\)</span>, <span class="math inline">\(\mu_2\)</span> y <span class="math inline">\(\mu_3\)</span> a las puntuaciones medias en razonamiento espacial tras escuchar Mozart, relajación y silencio, <span class="math inline">\(H_0: \mu_1=\mu_2=\mu_3\)</span> frente a <span class="math inline">\(H_1\)</span>: al menos una media es distinta.</p></li>
+<li><p>No directamente. El ANOVA solo indica que al menos una media es distinta; para saber qué grupos difieren hacen falta comparaciones posteriores (por ejemplo, el método de Tukey o de Bonferroni).</p></li>
+<li><p>Solo a universitarios y a una tarea espacial concreta, durante unos minutos tras escuchar la música. No se midió la inteligencia y no participaron niños, así que el titular no está justificado. Un análisis de la cobertura mostró que al año siguiente del estudio el <span class="math inline">\(80\)</span>% de las noticias mencionaba que eran universitarios, pero a partir de 2000 solo el <span class="math inline">\(30\)</span>% (<a href="https://www.mcgill.ca/oss/node/9857">McGill Office for Science and Society</a>): la población estudiada desaparece de la noticia.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-chocolate-adelgaza" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.11</strong></span> En 2015, el periodista John Bohannon, haciéndose pasar por investigador de un instituto inventado, publicó un estudio en una revista sin revisión real. Dividió a unas <span class="math inline">\(16\)</span> personas en tres grupos: dieta baja en carbohidratos, la misma dieta con chocolate negro y control. El grupo del chocolate perdió peso más rápido, con un resultado “significativo”, y la noticia la publicaron medios de varios países. Los datos eran reales, pero se midieron muchas variables (peso, colesterol, sueño, bienestar y otras) en muy pocas personas, y se publicó la que salió significativa. Fuentes: <a href="https://www.bangordailynews.com/2015/05/28/news/journalist-tests-media-on-false-study-touting-chocolate-makes-you-thin/">Bangor Daily News</a>, <a href="https://www.nhpr.org/national/2015-05-29/trickster-journalist-explains-why-he-duped-the-media-on-chocolate-study">NPR vía NHPR</a>, <a href="https://io9.gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800">io9</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis para la pérdida de peso.</p></li>
+<li><p>Supongamos que se miden <span class="math inline">\(18\)</span> variables independientes y que en ninguna de ellas hay un efecto real. Si se contrasta cada una con un nivel de significación del <span class="math inline">\(5\)</span>%, ¿cuál es la probabilidad de que al menos una salga significativa?</p></li>
+<li><p>¿Por qué se utiliza un ANOVA en lugar de hacer varios contrastes t por parejas?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>ANOVA de un factor con tres niveles: <span class="math inline">\(H_0\)</span>: las tres medias de pérdida de peso son iguales, frente a <span class="math inline">\(H_1\)</span>: al menos una es distinta.</p></li>
+<li><p>La probabilidad de que ninguna salga significativa es <span class="math inline">\(0.95^{18}\)</span>, así que la probabilidad de que al menos una salga significativa por azar es <span class="math inline">\(1-0.95^{18}\approx 0.60\)</span>. Con tantas variables, encontrar algún resultado “significativo” es más probable que no encontrarlo. Con tan pocos participantes y tantas variables, un resultado significativo aislado no es evidencia.</p></li>
+<li><p>Por el mismo motivo: cada contraste t tiene una probabilidad <span class="math inline">\(\alpha\)</span> de cometer un error de tipo I, y al hacer varios la probabilidad de cometer al menos uno crece. El ANOVA contrasta todas las medias a la vez con un nivel de significación global <span class="math inline">\(\alpha\)</span>. Por la misma razón, ante un estudio siempre hay que preguntar cuántas variables se midieron.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="intervalos-de-confianza-y-más-comparaciones" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="intervalos-de-confianza-y-más-comparaciones"><span class="header-section-number">3.6</span> Intervalos de confianza y más comparaciones</h2>
+<div id="exr-interpretacion-brecha-salarial" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.12</strong></span> Según la Encuesta Anual de Estructura Salarial 2024 del INE, las mujeres ganaron de media <span class="math inline">\(26904.90\)</span> € al año y los hombres <span class="math inline">\(32057.55\)</span> €. La mayoría de medios tituló que la brecha salarial es del <span class="math inline">\(16.1\)</span>%, mientras que UGT, con los datos de 2023, la expresaba diciendo que el salario medio de las mujeres tendría que subir un <span class="math inline">\(18.7\)</span>% para igualar al de los hombres. El salario medio fue de <span class="math inline">\(29540\)</span> €, el mediano de <span class="math inline">\(24497\)</span> € y el más frecuente de <span class="math inline">\(16520\)</span> €. Fuentes: <a href="https://www.eldiario.es/1_ca4a6c">elDiario.es</a>, <a href="https://www.infocop.es/la-brecha-salarial-entre-hombres-y-mujeres-persiste-en-espana-ellas-ganan-de-media-un-161-menos-segun-el-ine/">Infocop</a>, <a href="https://www.articulo14.es/economia/por-cada-euro-que-gana-un-hombre-una-mujer-percibe-84-centimos-20250529.html">Artículo14</a>, <a href="https://www.ine.es/uc/u9g3Py8t">INE</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis adecuado. ¿Qué cabe esperar del resultado, teniendo en cuenta el tamaño de la muestra de la encuesta?</p></li>
+<li><p>Calcular la brecha salarial de 2024 dividiendo la diferencia entre el salario de los hombres y entre el de las mujeres. ¿Se contradicen las dos cifras?</p></li>
+<li><p>¿Es correcto titular “las mujeres cobran un <span class="math inline">\(16\)</span>% menos por el mismo trabajo”?</p></li>
+<li><p>¿Qué indica que la media sea mucho mayor que la mediana y que la moda?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Llamando <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span> a los salarios medios de mujeres y hombres, <span class="math inline">\(H_0: \mu_1=\mu_2\)</span> frente a <span class="math inline">\(H_1: \mu_1&lt;\mu_2\)</span>. Con una muestra tan grande la diferencia es claramente significativa; lo interesante es cómo se cuenta.</p></li>
+<li><p>Dividiendo entre el salario de los hombres: <span class="math inline">\(\frac{32057.55-26904.90}{32057.55}\approx 0.161\)</span>, es decir, un <span class="math inline">\(16.1\)</span>%. Dividiendo entre el de las mujeres: <span class="math inline">\(\frac{32057.55-26904.90}{26904.90}\approx 0.192\)</span>, es decir, un <span class="math inline">\(19.2\)</span>%. Las dos cifras son ciertas y no se contradicen; simplemente usan distinto denominador.</p></li>
+<li><p>No.&nbsp;Es una brecha no ajustada: compara las medias globales de todos los hombres y todas las mujeres, no de personas con el mismo puesto, jornada y experiencia.</p></li>
+<li><p>Que la distribución de los salarios es muy asimétrica a la derecha: unos pocos sueldos muy altos tiran de la media hacia arriba. La mediana es una medida más representativa del salario típico.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-ene-covid" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.13</strong></span> El 6 de julio de 2020, el Ministerio de Sanidad y el Instituto de Salud Carlos III presentaron los resultados finales del estudio de seroprevalencia ENE-COVID: un <span class="math inline">\(5\)</span>% de la población tenía anticuerpos. Participaron <span class="math inline">\(68296\)</span> personas. En siete provincias del centro, incluida Madrid, la seroprevalencia superó el <span class="math inline">\(10\)</span>%; en Pontevedra fue del <span class="math inline">\(2.1\)</span>%. El estudio excluía a la población institucionalizada, como las residencias. Fuentes: <a href="https://www.sanidad.gob.es/gl/gabinete/notasPrensa.do?id=4994">Ministerio de Sanidad</a>, <a href="https://www.vigoe.es/?p=239097">Vigo e</a>, <a href="https://es.cochrane.org/es/prevalencia-de-sars-cov-2-en-espa%C3%B1a">Cochrane</a>.</p>
+<ol type="a">
+<li><p>Calcular el margen de error del <span class="math inline">\(95\)</span>% de la seroprevalencia nacional, suponiendo muestreo aleatorio simple.</p></li>
+<li><p>Supongamos que en Pontevedra se analizaron <span class="math inline">\(1000\)</span> personas. Calcular el margen de error de su seroprevalencia y compararlo con el nacional.</p></li>
+<li><p>Plantear el contraste para decidir si la seroprevalencia varía entre provincias.</p></li>
+<li><p>¿Es correcto decir que el <span class="math inline">\(5\)</span>% de la población española es inmune?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p><span class="math inline">\(1.96\sqrt{\frac{0.05\cdot 0.95}{68296}}\approx 0.0016\)</span>, es decir, unos <span class="math inline">\(0.16\)</span> puntos porcentuales. En la práctica el margen es algo mayor por el diseño muestral (muestreo por conglomerados), pero sigue siendo muy pequeño.</p></li>
+<li><p><span class="math inline">\(1.96\sqrt{\frac{0.021\cdot 0.979}{1000}}\approx 0.0089\)</span>, es decir, casi <span class="math inline">\(0.9\)</span> puntos porcentuales, unas cinco veces el margen nacional. Los intervalos provinciales son mucho más anchos porque cada provincia tiene menos muestra, por lo que comparar dos provincias con poca muestra sin mirar sus intervalos puede llevar a conclusiones erróneas.</p></li>
+<li><p>Es una comparación de muchas proporciones a la vez: <span class="math inline">\(H_0\)</span>: la seroprevalencia es igual en todas las provincias, frente a <span class="math inline">\(H_1\)</span>: al menos una es distinta. Se resuelve con un contraste chi-cuadrado de homogeneidad, el equivalente del ANOVA para proporciones.</p></li>
+<li><p>No.&nbsp;Los anticuerpos detectados no equivalen necesariamente a inmunidad. Además, la población estudiada excluía a la población institucionalizada, así que la estimación no es aplicable a las residencias.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-predimed" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.14</strong></span> En 2013, el <em>New England Journal of Medicine</em> publicó PREDIMED, un ensayo con <span class="math inline">\(7447\)</span> personas de alto riesgo cardiovascular repartidas en tres grupos: dieta mediterránea con aceite de oliva virgen extra, dieta mediterránea con frutos secos y dieta control baja en grasa. La prensa lo destacó como prueba de que la dieta mediterránea reduce un <span class="math inline">\(30\)</span>% los infartos, ictus y muertes cardiovasculares. En términos absolutos, la reducción era de unos <span class="math inline">\(3\)</span> eventos por cada <span class="math inline">\(1000\)</span> personas y año. En 2018 la revista retiró el artículo por problemas en la aleatorización de <span class="math inline">\(1588\)</span> participantes y publicó un reanálisis con conclusiones más prudentes. Fuentes: <a href="https://www.intramed.net/content/hoja-de-ruta-nutricional">IntraMed</a>, <a href="https://www.saludyfarmacos.org/?p=53833">Salud y Fármacos</a>, <a href="https://nutritionsource.hsph.harvard.edu/2018/06/22/predimed-retraction-republication">Harvard Nutrition Source</a>, <a href="https://blogs.bmj.com/bmj/2018/06/22/hilda-bastian-a-mediterranean-diet-trials-retraction-and-republication-leaves-a-trail-of-questions/">BMJ</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de hipótesis adecuado.</p></li>
+<li><p>¿Cuántas personas tendrían que seguir la dieta mediterránea durante un año para evitar un evento cardiovascular?</p></li>
+<li><p>¿Por qué es tan importante la aleatorización para poder hablar de causalidad?</p></li>
+<li><p>El problema se detectó porque un anestesista británico comprobó que los grupos eran demasiado distintos al inicio para haberse formado al azar. ¿Qué contraste de hipótesis estaba haciendo?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Llamando <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span> y <span class="math inline">\(p_3\)</span> a las tasas de eventos cardiovasculares en los tres grupos, <span class="math inline">\(H_0: p_1=p_2=p_3\)</span> frente a <span class="math inline">\(H_1\)</span>: al menos una es distinta. En la práctica se compara cada dieta mediterránea con la dieta control.</p></li>
+<li><p>Si la dieta evita <span class="math inline">\(3\)</span> eventos por cada <span class="math inline">\(1000\)</span> personas y año, hacen falta unas <span class="math inline">\(1000/3\approx 333\)</span> personas siguiendo la dieta durante un año para evitar un evento. El <span class="math inline">\(30\)</span>% es una reducción relativa que, sin el riesgo absoluto, exagera el efecto percibido.</p></li>
+<li><p>Porque al asignar a las personas al azar, los grupos solo difieren, salvo por azar, en la dieta, y cualquier diferencia significativa puede atribuirse a ella. Cuando la aleatorización falla, puede haber otras diferencias entre los grupos y la conclusión pasa de “reduce” a “se asocia con”. El reanálisis mantuvo un efecto, pero con menos certeza sobre su causalidad; tan erróneo era el titular de 2013 como decir en 2018 que “el estudio era falso”.</p></li>
+<li><p>Un contraste de homogeneidad de las características iniciales de los grupos: <span class="math inline">\(H_0\)</span>: los grupos proceden de la misma población (se formaron al azar), frente a <span class="math inline">\(H_1\)</span>: no proceden de la misma población. Unas diferencias iniciales demasiado grandes (o demasiado pequeñas) para ser fruto del azar llevan a rechazar <span class="math inline">\(H_0\)</span>.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-egm" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.15</strong></span> Cada ola del Estudio General de Medios (EGM) genera titulares sobre quién gana o pierde oyentes, y sobre posibles “sorpassos” entre programas separados por poco más de <span class="math inline">\(100000\)</span> oyentes. Cada ola se basa en unas <span class="math inline">\(25000\)</span> encuestas, mientras que el acumulado anual se basa en unas <span class="math inline">\(80000\)</span>. En Lanzarote, el EGM hizo <span class="math inline">\(48\)</span> entrevistas en una ola de 2026. Fuentes: <a href="https://www.vozpopuli.com/espana/grandes-comunicadores-radio-mejor-audiencia-historica.html">Vozpópuli</a>, <a href="https://www.esdiario.com/chismografo/medios/240424/132393/alarma-ser-aimar-bretos-cope.html">ESdiario</a>, <a href="https://www.lavozdelanzarote.com/en/ekonomus/eko/the-joke-of-the-egm-in-lanzarote-is-accentuated_242821_102.html">La Voz de Lanzarote</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste para decidir si un programa supera a otro en audiencia.</p></li>
+<li><p>Supongamos que un programa lo escucha el <span class="math inline">\(5\)</span>% de una población de unos <span class="math inline">\(40\)</span> millones de personas. Calcular, con muestreo aleatorio simple, el margen de error del <span class="math inline">\(95\)</span>% de su audiencia en una ola, en puntos porcentuales y en número de oyentes.</p></li>
+<li><p>¿Está justificado el titular “X gana <span class="math inline">\(50000\)</span> oyentes” entre dos olas?</p></li>
+<li><p>Calcular el margen de error máximo de una proporción estimada con las <span class="math inline">\(48\)</span> entrevistas de Lanzarote. ¿Sirven esos datos para comparar emisoras en la isla?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Llamando <span class="math inline">\(p_1\)</span> y <span class="math inline">\(p_2\)</span> a las proporciones de población que escuchan cada programa, <span class="math inline">\(H_0: p_1=p_2\)</span> frente a <span class="math inline">\(H_1: p_1\neq p_2\)</span>.</p></li>
+<li><p><span class="math inline">\(1.96\sqrt{\frac{0.05\cdot 0.95}{25000}}\approx 0.0027\)</span>, es decir, <span class="math inline">\(0.27\)</span> puntos porcentuales, que equivalen a <span class="math inline">\(0.0027\cdot 40000000\approx 108000\)</span> oyentes. Una diferencia de poco más de <span class="math inline">\(100000\)</span> oyentes entre dos programas está dentro del margen de error de una ola.</p></li>
+<li><p>No.&nbsp;Una variación de <span class="math inline">\(50000\)</span> oyentes es menor que el margen de error de cada ola y es compatible con que la audiencia no haya cambiado. Que todas las cadenas “saquen pecho” tras cada ola es una buena pista de que las diferencias son pequeñas.</p></li>
+<li><p><span class="math inline">\(1.96\sqrt{\frac{0.25}{48}}\approx 0.141\)</span>, es decir, <span class="math inline">\(\pm 14\)</span> puntos porcentuales. Con una muestra tan pequeña los resultados no sirven para comparar emisoras.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-cis-23j" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.16</strong></span> La ficha técnica del barómetro preelectoral del CIS para las elecciones generales de julio de 2023 indicaba un error muestral de <span class="math inline">\(\pm 0.6\)</span> puntos para el conjunto de la muestra, en el supuesto de muestreo aleatorio simple con <span class="math inline">\(p=q=0.5\)</span> y un nivel de confianza del <span class="math inline">\(95\)</span>%. La última estimación del CIS daba al PSOE un <span class="math inline">\(32.2\)</span>% y al PP un <span class="math inline">\(30.8\)</span>%; el resultado fue PP <span class="math inline">\(33.05\)</span>% y PSOE <span class="math inline">\(31.7\)</span>%. Fuentes: <a href="https://www.vozpopuli.com/espana/elecciones-generales-2023/encuesta-cis-elecciones-generales-23j-pp-vox.html">Vozpópuli</a>, <a href="https://www.ondavasca.com/tezanos-tras-el-23j-todas-las-encuestas-fallaron-menos-el-cis/">Onda Vasca</a>, <a href="https://theobjective.com/espana/politica/2023-07-23/fracaso-historico-encuestas-cis/">The Objective</a>, <a href="https://www.elindependiente.com/espana/2024/02/11/la-querencia-de-tezanos-a-infravalorar-al-pp-el-otro-examen-del-18-f-en-galicia/amp/">El Independiente</a>.</p>
+<ol type="a">
+<li><p>¿Qué tamaño muestral corresponde a un error de <span class="math inline">\(\pm 0.6\)</span> puntos?</p></li>
+<li><p>Construir los intervalos de confianza del <span class="math inline">\(95\)</span>% para la intención de voto de PP y PSOE. ¿Contienen el resultado real?</p></li>
+<li><p>¿Qué indica que el resultado del PP quede tan lejos del intervalo?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Despejando de <span class="math inline">\(1.96\sqrt{0.25/n}=0.006\)</span> se obtiene <span class="math inline">\(n=\frac{1.96^2\cdot 0.25}{0.006^2}\approx 26678\)</span> personas.</p></li>
+<li><p>Con <span class="math inline">\(n=26678\)</span>, el margen para el PP es <span class="math inline">\(1.96\sqrt{\frac{0.308\cdot 0.692}{26678}}\approx 0.0055\)</span>, y el intervalo es <span class="math inline">\((30.25\%, 31.35\%)\)</span>, que no contiene el <span class="math inline">\(33.05\)</span>% real. Para el PSOE el margen es también de unos <span class="math inline">\(0.56\)</span> puntos y el intervalo <span class="math inline">\((31.64\%, 32.76\%)\)</span> sí contiene, por poco, el <span class="math inline">\(31.7\)</span>% real.</p></li>
+<li><p>La desviación en el PP (más de <span class="math inline">\(2\)</span> puntos) fue muy superior al margen de la ficha técnica. El margen de error solo cubre el error de muestreo aleatorio; no incluye la no respuesta, el voto oculto, los cambios de última hora ni el modelo de estimación, que suelen pesar más. Por eso no debe tratarse el margen de la ficha técnica como la precisión real de una encuesta. Tampoco conviene juzgar a un instituto por una sola elección: lo instructivo es comparar la desviación de todas las encuestas con su margen declarado (varias encuestas privadas también fallaron, en la otra dirección).</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="contrastes-chi-cuadrado" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="contrastes-chi-cuadrado"><span class="header-section-number">3.7</span> Contrastes chi-cuadrado</h2>
+<div id="exr-interpretacion-loteria-navidad" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.17</strong></span> Cada diciembre los medios publican qué terminaciones han salido más en el Gordo de la Lotería de Navidad. Según los datos de Loterías y Apuestas del Estado, el <span class="math inline">\(5\)</span> ha sido la terminación del Gordo en <span class="math inline">\(32\)</span> ocasiones y el <span class="math inline">\(1\)</span> solo en <span class="math inline">\(8\)</span>. Algunos medios titulan que “los décimos terminados en cinco tienen más probabilidades de acierto”. Fuentes: <a href="https://www.publico.es/sociedad/loteria-navidad-2023-numero-veces-terminado-gordo.html">Público</a>, <a href="https://www.diaridetarragona.com/internacional/104016/estadistica-y-supersticion-mitos-en-la-loteria-20191220-0052-fsdt201912200052.html">Diari de Tarragona</a>, <a href="https://www.reasonwhy.es/actualidad/sociedad-y-consumo/loteria-de-navidad-curiosidades-cifras-y-consumo-2014-12-19">Reason Why</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste adecuado para decidir si todas las terminaciones son igual de probables. ¿Cuántos grados de libertad tiene el estadístico?</p></li>
+<li><p>¿Es correcto decir que el <span class="math inline">\(5\)</span> tiene más probabilidades de salir?</p></li>
+<li><p>Un medio destaca que el Gordo nunca ha terminado en <span class="math inline">\(25\)</span>. ¿Por qué no es un dato sorprendente?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Es un contraste chi-cuadrado de bondad de ajuste con <span class="math inline">\(10\)</span> categorías (terminaciones de <span class="math inline">\(0\)</span> a <span class="math inline">\(9\)</span>). <span class="math inline">\(H_0\)</span>: cada terminación tiene probabilidad <span class="math inline">\(1/10\)</span>, frente a <span class="math inline">\(H_1\)</span>: alguna terminación tiene una probabilidad distinta. Las frecuencias esperadas son el número total de sorteos dividido entre <span class="math inline">\(10\)</span>, y el estadístico tiene <span class="math inline">\(10-1=9\)</span> grados de libertad (el valor crítico al <span class="math inline">\(5\)</span>% es <span class="math inline">\(\chi^2_{9}(0.95)=16.92\)</span>).</p></li>
+<li><p>No.&nbsp;Confunde frecuencia observada con probabilidad. Con unos dos siglos de sorteos es normal que unas terminaciones hayan salido más que otras por puro azar. Y aunque el contraste diera significativo, describiría el pasado: cada sorteo es independiente y el bombo no recuerda resultados anteriores.</p></li>
+<li><p>Porque es el resultado de buscar el dato más llamativo entre muchísimas combinaciones (terminaciones de una, dos y tres cifras, números completos, ciudades, etc.). Con tantas comparaciones siempre aparece alguna “rareza” por azar, que es el problema de las comparaciones múltiples.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-futbolistas-enero" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.18</strong></span> <a href="https://maldita.es/malditodato/20221130/mundial-catar-edad-relativa-enero-futbolistas/">Maldita.es</a> analizó las fechas de nacimiento de los jugadores del Mundial de Catar 2022: el <span class="math inline">\(11.70\)</span>% nació en enero y el <span class="math inline">\(7.36\)</span>% en diciembre; el <span class="math inline">\(32.21\)</span>% en el primer trimestre frente al <span class="math inline">\(20.87\)</span>% en el último. Un <a href="https://portalcientifico.unileon.es/documentos/5f94cd182999521ddf0ba2c0?lang=es">estudio con 5748 jugadores</a> del fútbol profesional español (2011–2016) encontró el mismo patrón.</p>
+<ol type="a">
+<li><p>Plantear el contraste adecuado para decidir si los futbolistas profesionales nacen repartidos a lo largo del año igual que el resto de la población.</p></li>
+<li><p>Un estudiante propone usar un <span class="math inline">\(25\)</span>% por trimestre como frecuencia relativa esperada. ¿Es correcto?</p></li>
+<li><p>Si el contraste resulta significativo, ¿se puede concluir que nacer en enero hace mejor futbolista?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Es un contraste chi-cuadrado de bondad de ajuste con <span class="math inline">\(4\)</span> categorías (trimestres). <span class="math inline">\(H_0\)</span>: la distribución por trimestre de los nacimientos de los futbolistas es igual a la de los nacimientos de la población, frente a <span class="math inline">\(H_1\)</span>: es distinta. Con miles de jugadores, una diferencia de un <span class="math inline">\(32\)</span>% frente a un <span class="math inline">\(21\)</span>% es claramente significativa.</p></li>
+<li><p>No exactamente. Los nacimientos no se reparten por igual a lo largo del año, de modo que la referencia correcta para calcular las frecuencias esperadas es la distribución de los nacimientos de la población.</p></li>
+<li><p>No.&nbsp;Es el llamado efecto de la edad relativa: en las categorías infantiles, los nacidos a principios de año son casi un año mayores que algunos compañeros y tienen ventaja física, así que los clubes los seleccionan antes. El efecto está en el proceso de selección, no en el mes de nacimiento.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-sexo-voto" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.19</strong></span> <a href="https://www.eldiario.es/politica/vox-reduciria-resultados-electorales-votaran_1_1608493.html">elDiario.es</a> analizó un barómetro del CIS desagregado por sexo. Solo el <span class="math inline">\(2.5\)</span>% de las mujeres decía que votaría a Vox, frente al <span class="math inline">\(5.2\)</span>% de los hombres. Un politólogo lo resumía así: “dos de cada tres votantes de Vox son hombres”.</p>
+<ol type="a">
+<li><p>Plantear el contraste adecuado para decidir si el voto depende del sexo.</p></li>
+<li><p>Suponiendo que en la muestra hay el mismo número de hombres que de mujeres, comprobar que dos de cada tres votantes de Vox son hombres.</p></li>
+<li><p>¿Dicen lo mismo las frases “el <span class="math inline">\(5.2\)</span>% de los hombres vota a Vox” y “dos de cada tres votantes de Vox son hombres”? ¿Es correcto concluir que la mayoría de los hombres vota a Vox?</p></li>
+<li><p>Si se rechaza la hipótesis nula, ¿se puede concluir que el sexo causa el voto?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Es un contraste chi-cuadrado de independencia en una tabla de contingencia sexo × partido. <span class="math inline">\(H_0\)</span>: sexo y voto son independientes, frente a <span class="math inline">\(H_1\)</span>: no son independientes.</p></li>
+<li><p>Si hay <span class="math inline">\(n\)</span> hombres y <span class="math inline">\(n\)</span> mujeres, votarían a Vox <span class="math inline">\(0.052n\)</span> hombres y <span class="math inline">\(0.025n\)</span> mujeres, de modo que la proporción de hombres entre los votantes de Vox es <span class="math inline">\(\frac{0.052}{0.052+0.025}\approx 0.675\)</span>, es decir, aproximadamente dos de cada tres.</p></li>
+<li><p>No.&nbsp;Las dos frases salen de la misma tabla leída en dos direcciones: “el <span class="math inline">\(5.2\)</span>% de los hombres vota a Vox” es un porcentaje por filas, <span class="math inline">\(P(\text{Vox}|\text{hombre})\)</span>, y “dos de cada tres votantes de Vox son hombres” es un porcentaje por columnas, <span class="math inline">\(P(\text{hombre}|\text{Vox})\)</span>. Ambas son ciertas. Decir que la mayoría de los hombres vota a Vox sería falso: confunde las dos probabilidades condicionadas.</p></li>
+<li><p>No.&nbsp;El contraste solo muestra que hay asociación entre las variables. Puede haber otras variables, como la edad, detrás de la relación.</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="correlación" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="correlación"><span class="header-section-number">3.8</span> Correlación</h2>
+<div id="exr-interpretacion-calor-virus" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.20</strong></span> El 14 de abril de 2020, la AEMET y el Instituto de Salud Carlos III publicaron resultados preliminares que comparaban, en las <span class="math inline">\(17\)</span> comunidades autónomas, la incidencia acumulada de COVID-19 con la temperatura media entre el 26 de marzo y el 5 de abril. Encontraron una correlación negativa: a menor temperatura, mayor incidencia. Telecinco tituló “Fin al misterio: el tiempo influye en el coronavirus, a más calor, menos virus”. Ese mismo año, un análisis por provincias que tenía en cuenta la densidad de población, la edad y otros factores no encontró evidencia de que el calor redujera los casos. Fuentes: <a href="https://aemetblog.es/2020/04/14/primeros-indicios-de-correlacion-entre-variables-meteorologicas-y-propagacion-de-la-enfermedad-covid19-y-del-virus-sars-cov-2-en-espana/">AEMET</a>, <a href="https://www.ultimahora.es/noticias/nacional/2020/04/14/1157019/coronavirus-espana-menos-temperatura-mayor-incidencia-covid-19.html">Última Hora</a>, <a href="https://telecinco.es/noticias/ciencia-y-tecnologia/temperaturas-contagios-coronavirus_18_2930820286.html">Telecinco</a>, <a href="https://expeditiorepositorio.utadeo.edu.co/items/b359a00b-b4c2-4060-8a94-a983356058a6">Briz-Redón y Serrano-Aroca (2020)</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de correlación.</p></li>
+<li><p>Sabiendo que el estadístico <span class="math inline">\(t=\frac{r\sqrt{n-2}}{\sqrt{1-r^2}}\)</span> sigue una distribución <span class="math inline">\(t(n-2)\)</span> bajo <span class="math inline">\(H_0\)</span>, calcular a partir de qué valor de <span class="math inline">\(|r|\)</span> la correlación es significativa al <span class="math inline">\(5\)</span>% con <span class="math inline">\(17\)</span> comunidades.</p></li>
+<li><p>¿Está justificado el titular de Telecinco?</p></li>
+<li><p>¿Se pueden sacar conclusiones sobre el riesgo de contagio de las personas a partir de datos agregados por comunidad?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Llamando <span class="math inline">\(\rho\)</span> al coeficiente de correlación poblacional entre temperatura e incidencia, <span class="math inline">\(H_0: \rho=0\)</span> frente a <span class="math inline">\(H_1: \rho\neq 0\)</span> (o <span class="math inline">\(H_1: \rho&lt;0\)</span> si se espera que el calor reduzca la incidencia).</p></li>
+<li><p>Con <span class="math inline">\(n-2=15\)</span> grados de libertad, el valor crítico es <span class="math inline">\(t_{15}(0.975)=2.131\)</span>. Despejando <span class="math inline">\(r\)</span> de <span class="math inline">\(t=\frac{r\sqrt{15}}{\sqrt{1-r^2}}\)</span> se obtiene <span class="math inline">\(|r|=\frac{t}{\sqrt{t^2+15}}=\frac{2.131}{\sqrt{2.131^2+15}}\approx 0.48\)</span>. Con tan pocas unidades hace falta una correlación moderadamente fuerte para que sea significativa, pero aun así puede salir significativa sin ser causal.</p></li>
+<li><p>No.&nbsp;Presenta una correlación preliminar, con <span class="math inline">\(17\)</span> comunidades y <span class="math inline">\(11\)</span> días, como una causa demostrada. Las comunidades más frías del centro peninsular, como Madrid y las dos Castillas, eran también las que tenían más conexiones y donde el virus llegó antes. Un titular más correcto sería, por ejemplo, “Las comunidades más frías tuvieron más incidencia en las primeras semanas, aunque no se sabe si el clima influye”.</p></li>
+<li><p>No.&nbsp;Pasar de datos por comunidad a conclusiones sobre personas es la falacia ecológica.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-renta-esperanza-vida" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.21</strong></span> En Barcelona, en 2022, la esperanza de vida al nacer era de <span class="math inline">\(87.67\)</span> años en Pedralbes y de <span class="math inline">\(77.66\)</span> en Vallbona, dos barrios separados por <span class="math inline">\(14\)</span> km. En general, los barrios con más renta tienen mayor esperanza de vida. Fuentes: <a href="https://www.vozpopuli.com/bienestar/estos-son-los-barrios-de-barcelona-donde-hay-mas-esperanza-de-vida-segun-los-cientificos.html">Vozpópuli</a>, <a href="https://www.bioeticayderecho.ub.edu/en/node/7425">Observatorio de Bioética y Derecho (UB)</a>, <a href="https://doaj.org/article/f0bcbb7f722549a8a5ad0738fcc65de0">Gaceta Sanitaria</a>.</p>
+<ol type="a">
+<li><p>Plantear el contraste de correlación, tomando cada barrio como una observación.</p></li>
+<li><p>¿Es correcto concluir que si se sube la renta de un barrio su población vivirá más?</p></li>
+<li><p>¿Es correcto concluir que cualquier persona de Pedralbes vivirá más que cualquier persona de Vallbona?</p></li>
+<li><p>Tanto esta correlación como la del ejercicio anterior se calculan por zonas geográficas. ¿Por qué esta se considera sólida y la otra no?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p>Llamando <span class="math inline">\(\rho\)</span> al coeficiente de correlación entre la renta media y la esperanza de vida de los barrios, <span class="math inline">\(H_0: \rho=0\)</span> frente a <span class="math inline">\(H_1: \rho&gt;0\)</span>.</p></li>
+<li><p>No.&nbsp;Correlación no implica causalidad. Detrás de la renta hay otras variables que también influyen en la esperanza de vida: tipo de empleo, contaminación, acceso a la salud o hábitos de vida.</p></li>
+<li><p>No.&nbsp;Aplicar a individuos una relación observada entre barrios es la falacia ecológica. Además, en barrios con poca población la esperanza de vida estimada es muy variable.</p></li>
+<li><p>Por el número de unidades (muchos barrios frente a <span class="math inline">\(17\)</span> comunidades), el periodo observado (años frente a <span class="math inline">\(11\)</span> días), la coherencia con otros muchos estudios y la plausibilidad de los mecanismos que la explican.</p></li>
+</ol>
+</div>
+</div>
+</div>
+<div id="exr-interpretacion-chocolate-nobel" class="theorem exercise">
+<p><span class="theorem-title"><strong>Ejercicio 3.22</strong></span> En 2012, el cardiólogo Franz Messerli publicó en el <em>New England Journal of Medicine</em> una correlación muy fuerte (<span class="math inline">\(r=0.791\)</span>, <span class="math inline">\(p&lt;0.0001\)</span>) entre el consumo de chocolate por habitante y el número de premios Nobel por cada <span class="math inline">\(10\)</span> millones de habitantes en <span class="math inline">\(23\)</span> países. Messerli lo planteó con ironía, pero varios medios lo titularon como si el chocolate produjera premios Nobel. Un despacho de abogados lo explicaba diciendo que <span class="math inline">\(p&lt;0.0001\)</span> significa que la probabilidad de que sea un resultado aleatorio es menor de una entre diez mil. Fuentes: <a href="https://www.popsci.com/science/article/2012-10/nations-chocolate-intake-directly-correlated-number-nobel-laureates-it-spawns-not-really">Popular Science</a>, <a href="https://www.swissinfo.ch/eng/sci-tech/does-chocolate-help-you-win-a-nobel-prize/33704568">SWI swissinfo.ch</a>, <a href="https://blogs.nejm.org/cardioexchange/2012/10/10/chocolate-and-nobel-prizes-linked/">NEJM</a>, <a href="https://www.confectionerynews.com/Regulation-Safety/Eating-chocolate-produces-Nobel-prize-winners-says-study">Confectionery News</a>.</p>
+<ol type="a">
+<li><p>Calcular el estadístico del contraste <span class="math inline">\(H_0: \rho=0\)</span> y comprobar que el p-valor es menor que <span class="math inline">\(0.0001\)</span>.</p></li>
+<li><p>¿Qué porcentaje de la variabilidad del número de premios Nobel explica el consumo de chocolate?</p></li>
+<li><p>¿Es correcta la interpretación del p-valor del despacho de abogados?</p></li>
+<li><p>¿Qué tercera variable puede explicar la correlación?</p></li>
+</ol>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li><p><span class="math inline">\(t=\frac{0.791\sqrt{21}}{\sqrt{1-0.791^2}}\approx 5.92\)</span> y el p-valor es <span class="math inline">\(2P(t(21)&gt;5.92)\approx 7\cdot 10^{-6}&lt;0.0001\)</span>.</p></li>
+<li><p>El coeficiente de determinación es <span class="math inline">\(r^2=0.791^2\approx 0.626\)</span>, es decir, un <span class="math inline">\(62.6\)</span>%. Pero que una variable “explique” estadísticamente la variabilidad de otra no significa que la cause.</p></li>
+<li><p>No.&nbsp;El p-valor mide lo raros que serían los datos si <span class="math inline">\(H_0\)</span> fuera cierta, es decir, la probabilidad de obtener una correlación tan fuerte como la observada si no hubiera correlación en la población. No es la probabilidad de que <span class="math inline">\(H_0\)</span> sea cierta ni la probabilidad de que el resultado sea “casualidad”. Es la interpretación errónea más extendida del p-valor.</p></li>
+<li><p>La riqueza del país, que se asocia tanto con el consumo de chocolate como con la inversión en educación e investigación. Correlación no implica causalidad.</p></li>
+</ol>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./07-contrastes-parametricos.html" class="pagination-link" aria-label="Contrastes de hipótesis paramétricos">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Contrastes de hipótesis paramétricos</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

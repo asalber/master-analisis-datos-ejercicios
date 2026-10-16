@@ -1,0 +1,531 @@
+---
+title: Interpretación de intervalos y contrastes en los medios
+lang: es
+---
+
+Los ejercicios de este capítulo parten de noticias reales. El objetivo no es tanto calcular como saber plantear el intervalo o el contraste que hay detrás de cada cifra e interpretar correctamente el resultado. 
+
+Ante cualquier cifra conviene preguntarse: 
+
+- Parámetro estimado o contrastado: _¿Qué se está estimando? ¿Qué se compara? ¿Con qué se compara?_
+- Tamaño muestral: _¿Cuántos casos hay?_
+- Error en la estimación: _¿Cuál es el margen de error?_
+- Significación estadística: _¿la diferencia es significativa?_
+- Significación práctica: _¿Es importante en la práctica?_
+- Causalidad: _¿Es causal o solo una asociación?_
+
+## Contrastes sobre una media
+
+:::{#exr-interpretacion-temperatura-corporal}
+En enero de 2020, un equipo de Stanford publicó en *eLife* un estudio con unas $677000$ mediciones de temperatura corporal en EE. UU. desde la Guerra Civil hasta 2017. Concluía que la temperatura media de los adultos sanos ha bajado de forma gradual y que ya no es de $37$ ºC, sino que se sitúa en torno a $36.4$–$36.6$ ºC. Cuando la prensa española recuperó la noticia en 2024, algunos medios escribieron que la referencia histórica era de $36.6$ ºC y que la nueva temperatura normal "ronda los $36$ grados". Fuentes: [Stanford Medicine](https://med.stanford.edu/news/all-news/2020/01/human-body-temperature-has-decreased-in-united-states.html), [KQED](https://kqed.org/science/1954750/youre-cooler-than-you-think-98-6-temperature-no-longer-the-norm), [The Objective](https://theobjective.com/sociedad/ciencia/2024-11-14/ciencia-anuncia-temperatura-corporal-normal-no-36-grados/).
+
+a. Plantear el contraste de hipótesis que permite decidir si la temperatura media actual es distinta de $37$ ºC.
+
+a. ¿Por qué es prácticamente seguro que el contraste resulte significativo?
+
+a. ¿Significa eso que hay que cambiar el umbral con el que se diagnostica la fiebre?
+
+a. ¿Qué errores contiene la noticia publicada en la prensa española?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+Sea $X$ la variable aleatoria que mide la temperatura corporal de los adultos sanos y $\mu$ su media.
+
+a. Se trata de un contraste bilateral para la media: $H_0: \mu=37$ frente a $H_1: \mu\neq 37$.
+
+a. El error típico de la media muestral es $\sigma/\sqrt{n}$, y con cientos de miles de mediciones es minúsculo. Cualquier diferencia, por pequeña que sea, produce un estadístico de contraste enorme y un p-valor prácticamente nulo. Con muestras muy grandes casi todo sale significativo.
+
+a. No. Que una diferencia sea estadísticamente significativa no implica que sea importante en la práctica. Una diferencia de unas décimas en la media poblacional es pequeña comparada con la variación individual por edad, sexo, tamaño corporal y hora del día. Los médicos consultados dijeron que no cambiaría la práctica clínica. Además, una media no define qué es "normal" para cada persona.
+
+a. La referencia histórica (Wunderlich) era $37$ ºC, no $36.6$ ºC, y el estudio no habla de $36$ ºC en ningún momento. Es un buen ejemplo de la necesidad de contrastar la noticia con la fuente original.
+:::
+
+## Contrastes sobre una proporción
+
+:::{#exr-interpretacion-empate-tecnico}
+En febrero de 2021, Pablo Casado afirmó que el PP estaba en "empate técnico" con el PSOE según la mayoría de encuestas. [Maldita.es](https://maldita.es/malditodato/20210220/falso-casado-pp-psoe-empate-tecnico-encuestas/) lo verificó: la diferencia mínima en la media de encuestas era de cuatro puntos, y el error medio histórico de las encuestas en España es de unos dos puntos por partido.
+
+Supongamos una encuesta de $n=1067$ personas, cuya ficha técnica declara un margen de error de $\pm 3$ puntos, en la que el PSOE obtiene el $28$% y el PP el $24$%.
+
+a. Plantear el contraste adecuado para decidir si la intención de voto de los dos partidos es distinta.
+
+a. ¿A qué se refiere exactamente el margen de error de $\pm 3$ puntos de la ficha técnica?
+
+a. Sabiendo que, para dos proporciones $\hat p_1$ y $\hat p_2$ de una misma encuesta, el error típico de la diferencia es $\sqrt{\frac{\hat p_1+\hat p_2-(\hat p_1-\hat p_2)^2}{n}}$, calcular el margen de error de la diferencia con un $95$% de confianza. ¿Es significativa una diferencia de $4$ puntos en esta encuesta?
+
+a. Un periodista afirma que, como los intervalos de los dos partidos se solapan, hay empate técnico. ¿Es correcto este razonamiento?
+
+a. ¿Qué otras fuentes de error no recoge el margen de error de la ficha técnica?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+Sean $p_1$ y $p_2$ las proporciones de voto al PSOE y al PP en la población.
+
+a. Contraste bilateral sobre la diferencia de dos proporciones de la misma muestra: $H_0: p_1=p_2$ frente a $H_1: p_1\neq p_2$.
+
+a. Es el margen de error de la estimación de la proporción de **cada partido por separado** y en el peor caso ($p=0.5$): $1.96\sqrt{0.25/1067}\approx 0.03$.
+
+a. El margen de error de la diferencia es $1.96\sqrt{\frac{0.28+0.24-0.04^2}{1067}}\approx 0.043$, es decir, unos $4.3$ puntos. Es mayor que el margen de cada partido, pero menor que el doble ($6$ puntos). En esta encuesta aislada una diferencia de $4$ puntos no sería significativa al $5$%. Sin embargo, en la noticia la diferencia de cuatro puntos era la **mínima en la media de muchas encuestas**, que es mucho más precisa que una sola, y por tanto sí era una diferencia sustancial. Hablar de "empate técnico" era incorrecto.
+
+a. No. Que los intervalos de confianza de dos proporciones se solapen no implica automáticamente que la diferencia no sea significativa; hay que construir el intervalo o el contraste para la diferencia. El error contrario también es frecuente: decir que un partido "lidera" cuando la diferencia está dentro del margen de error.
+
+a. El margen de error solo cubre el error de muestreo aleatorio. No incluye los sesgos de no respuesta, el voto oculto ni el modelo de estimación de voto, que en España suelen ser mayores.
+:::
+
+:::{#exr-interpretacion-paro-epa}
+Según [elDiario.es](https://www.eldiario.es/economia/rumano-hombre-depende-suba-espana_1_5739925.amp.html), la nota de prensa del INE presenta las cifras de la EPA como cerradas, sin mencionar su margen de error. En uno de los trimestres analizados la EPA estimó $6202700$ parados, con un error de muestreo (coeficiente de variación) del $0.86$%. Los errores de muestreo están publicados en los [informes de evaluación de la EPA](https://ine.es/docutrab/eval_epa/evaluacion_epa19.pdf).
+
+a. Calcular el intervalo de confianza del $95$% para el número de parados.
+
+a. Plantear el contraste que permite decidir si el paro ha cambiado entre dos trimestres.
+
+a. Un medio titula "El paro baja en 40000 personas" a partir de esta estimación. ¿Está justificado el titular?
+
+a. ¿Por qué el problema es mucho más grave cuando se informa del paro de una comunidad autónoma pequeña o de un colectivo concreto?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. El error típico de la estimación es $0.0086\cdot 6202700\approx 53343$ parados, así que el margen de error del $95$% es $1.96\cdot 53343\approx 104553$ parados. El intervalo de confianza es aproximadamente $(6098000, 6307000)$ parados.
+
+a. Llamando $p_1$ y $p_2$ a las tasas de paro de los dos trimestres, $H_0: p_1=p_2$ (el paro no ha cambiado) frente a $H_1: p_1\neq p_2$ (ha cambiado).
+
+a. No. Una variación de $40000$ parados es mucho menor que el margen de error de cada estimación, por lo que es compatible con que no haya habido ningún cambio real en el paro. El titular presenta como un hecho algo que podría ser solo error de muestreo.
+
+a. Porque la muestra de una comunidad pequeña o de un colectivo concreto es mucho menor, y el coeficiente de variación de la estimación es mucho mayor. A nivel nacional el margen es estrecho; en una comunidad pequeña la variación trimestral puede ser menor que el propio error de muestreo.
+:::
+
+## Comparación de dos proporciones
+
+:::{#exr-interpretacion-vacuna-pfizer}
+El 18 de noviembre de 2020, Pfizer y BioNTech anunciaron los resultados finales de su ensayo con más de $43000$ voluntarios repartidos en dos grupos de tamaño similar (vacuna y placebo). Hubo $170$ casos de COVID-19: $162$ en el grupo placebo y $8$ en el vacunado. El artículo publicado en el *New England Journal of Medicine* daba una eficacia del $95$% con un intervalo de confianza del $95$% entre el $90.3$% y el $97.6$%. Fuentes: [El Universal (AFP)](https://www.eluniversal.com.mx/mundo/vacuna-coronavirus-pfizer-dice-que-tiene-una-efectividad-del-95), [Reuters vía Ahram](https://english.ahram.org.eg/News/394086.aspx).
+
+a. Plantear el contraste de hipótesis adecuado. ¿Debe ser bilateral o unilateral?
+
+a. Sabiendo que la eficacia se define como $1-\frac{\text{riesgo en vacunados}}{\text{riesgo en placebo}}$, comprobar que la eficacia estimada es del $95$%.
+
+a. Interpretar correctamente la eficacia del $95$%. ¿Es correcto decir que "el $5$% de los vacunados enfermará"?
+
+a. Un tertuliano opina que "con solo $170$ casos el estudio es demasiado pequeño". ¿Qué le responderías?
+
+a. Explicar el intervalo $90.3$%–$97.6$% en una frase apta para un titular, sin usar la palabra "confianza".
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+Sean $p_1$ y $p_2$ las proporciones de personas que contraen COVID-19 sintomática entre los vacunados y entre quienes reciben placebo.
+
+a. $H_0: p_1=p_2$ frente a $H_1: p_1<p_2$. Es un contraste unilateral porque lo que interesa es saber si la vacuna protege.
+
+a. Como los dos grupos tienen un tamaño similar, el cociente de riesgos es aproximadamente el cociente de casos, y la eficacia es $1-8/162\approx 0.95$.
+
+a. Entre los vacunados, el riesgo de COVID-19 sintomática fue un $95$% menor que entre los que recibieron placebo, durante el periodo del ensayo. El $95$% es una reducción **relativa** del riesgo, no un porcentaje de personas. Ni el $95$% de los vacunados queda protegido ni el $5$% enfermará: en el ensayo enfermaron $8$ de unos $21500$ vacunados.
+
+a. Que la precisión de la estimación depende sobre todo del número de casos (eventos), no solo del número de participantes. Con $170$ casos tan desequilibrados el intervalo de confianza publicado es estrecho, y el contraste resulta claramente significativo.
+
+a. Por ejemplo: "La vacuna reduce el riesgo de COVID sintomática entre un $90$% y un $98$%, según el ensayo". El intervalo recoge los valores de la eficacia que son compatibles con los datos.
+:::
+
+:::{#exr-interpretacion-mascarillas}
+En noviembre de 2020, *Annals of Internal Medicine* publicó el ensayo danés DANMASK-19 con unas $6000$ personas repartidas en dos grupos de unas $3000$. Se infectó el $1.8$% del grupo al que se recomendó llevar mascarilla y el $2.1$% del grupo control. El estudio estaba diseñado para detectar una reducción del riesgo a la mitad, se hizo cuando casi nadie llevaba mascarilla en Dinamarca y menos de la mitad de los participantes la usó correctamente. Varios artículos difundidos en redes titularon que "las mascarillas no funcionan". Fuentes: [T13 (AFP)](https://www.t13.cl/noticia/mundo/estudio-uso-mascarilla-tiene-poco-efecto-protegerse-del-coronavirus), [American College of Physicians](https://www.acponline.org/acp-newsroom/denmark-trial-measures-effectiveness-of-adding-a-mask-recommendation-to-other-public-health-measures), [FactCheck.org](https://www.factcheck.org/2020/11/danish-study-doesnt-prove-masks-dont-work-against-the-coronavirus).
+
+a. Plantear el contraste de hipótesis adecuado.
+
+a. Calcular el estadístico de contraste y el p-valor. ¿Es significativa la diferencia al $5$%?
+
+a. ¿Está justificado el titular "las mascarillas no funcionan"?
+
+a. ¿Qué papel juega la potencia del contraste en este estudio?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+Sean $p_1$ y $p_2$ las proporciones de infectados en el grupo con mascarilla y en el grupo control.
+
+a. $H_0: p_1=p_2$ frente a $H_1: p_1<p_2$.
+
+a. La proporción conjunta es $\hat p=0.0195$ y el estadístico de contraste es
+$$z=\frac{0.018-0.021}{\sqrt{0.0195\cdot 0.9805\left(\frac{1}{3000}+\frac{1}{3000}\right)}}\approx -0.84,$$
+con p-valor $P(Z<-0.84)\approx 0.2$. Como es mayor que $\alpha=0.05$, no se rechaza la hipótesis nula: la diferencia no es significativa.
+
+a. No. "No significativo" no significa "no hay efecto", sino que los datos son compatibles tanto con un efecto pequeño como con ninguno. Los propios editores resumieron que el estudio descarta un efecto protector grande, apoya débilmente efectos menores y no puede descartar que no haya efecto. Además, el estudio solo evaluaba la protección de quien lleva la mascarilla, no la de los demás.
+
+a. El estudio solo tenía potencia suficiente para detectar una reducción del riesgo a la mitad. Para efectos más pequeños, la probabilidad de rechazar $H_0$ aunque el efecto exista es baja, es decir, la probabilidad de cometer un error de tipo II es alta. No rechazar la hipótesis nula con un contraste de poca potencia aporta muy poca información.
+:::
+
+:::{#exr-interpretacion-carne-procesada}
+En octubre de 2015, la Agencia Internacional de Investigación sobre el Cáncer (IARC) de la OMS clasificó la carne procesada como carcinógena, en el mismo grupo que el tabaco, tras revisar más de $800$ estudios. Según su informe, cada $50$ gramos diarios de carne procesada aumentan el riesgo de cáncer colorrectal un $18$%. Fuentes: [SINC](https://cdn.agenciasinc.es/print/93530), [Cooperativa](https://www.cooperativa.cl/noticias/site/artic/20151026/pags-amp/20151026102415.html), [Última Hora](https://www.ultimahora.es/noticias/sociedad/2023/02/13/1877819/par-salchichas-semana-aumentan-riesgo-cancer.html).
+
+a. Plantear el contraste de hipótesis en términos del riesgo relativo.
+
+a. Sabiendo que el riesgo de cáncer colorrectal a lo largo de la vida es de aproximadamente un $5$%, calcular el riesgo para quienes comen $50$ gramos diarios de carne procesada. ¿Cuál es el aumento del riesgo absoluto?
+
+a. ¿Es correcto decir que la carne procesada es tan peligrosa como el tabaco?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Si $RR$ es el cociente entre el riesgo de cáncer colorrectal de quienes comen carne procesada a diario y el de quienes no la comen, $H_0: RR=1$ frente a $H_1: RR>1$.
+
+a. El riesgo pasa de un $5$% a $5\cdot 1.18\approx 5.9$%, es decir, a aproximadamente un $6$%. El aumento absoluto es de alrededor de $1$ punto porcentual, no de $18$ puntos. El riesgo individual sigue siendo pequeño, como subrayó el propio jefe del programa de la IARC.
+
+a. No. El grupo de clasificación indica la solidez de la evidencia de que hay un efecto, no el tamaño del riesgo. El aumento del riesgo de cáncer de pulmón asociado al tabaco es enormemente mayor.
+:::
+
+:::{#exr-interpretacion-paradoja-simpson}
+En agosto de 2021, de los $515$ pacientes ingresados por COVID-19 en Israel, $301$ estaban vacunados con dos dosis. El dato se difundió en redes como prueba de que las vacunas no funcionaban. Sin embargo, al separar por grupos de edad, la tasa de hospitalización era menor en los vacunados dentro de cada grupo. Fuentes: [Maldita.es](https://maldita.es/malditateexplica/20210908/paradoja-simpson-malinterpretar-datos-vacunas-covid/), [Maldita.es (bulo de Reino Unido)](https://maldita.es/malditaciencia/20211008/muertes-covid-19-reino-unido-vacunados), [The Objective](https://theobjective.com/sociedad/ciencia/2021-12-05/efectividad-vacunal-hospitalizados-paradoja-simpson/).
+
+a. Calcular el porcentaje de vacunados entre los hospitalizados.
+
+a. ¿Qué proporciones habría que comparar para saber si los vacunados se hospitalizan más o menos que los no vacunados? Plantear el contraste.
+
+a. ¿Cómo es posible que la mayoría de los hospitalizados estén vacunados y que, aun así, la vacuna reduzca el riesgo de hospitalización en todos los grupos de edad?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. $301/515\approx 0.584$, es decir, el $58.4$% de los hospitalizados estaba vacunado.
+
+a. Hay que comparar **tasas**, no recuentos: la proporción de hospitalizados entre los vacunados, $p_1$, y entre los no vacunados, $p_2$. El contraste es $H_0: p_1=p_2$ frente a $H_1: p_1<p_2$, y debe hacerse dentro de grupos comparables (por ejemplo, por grupos de edad).
+
+a. Es la paradoja de Simpson. La mayoría de la población, y sobre todo los mayores, estaba vacunada, y los mayores son los que más se hospitalizan. La edad está relacionada tanto con la vacunación como con la hospitalización, de modo que al agregar los grupos la comparación se invierte. Un ejemplo clásico es el de las admisiones de la Universidad de Berkeley en 1973: en conjunto se admitía a menos mujeres, pero departamento a departamento la diferencia desaparecía.
+:::
+
+## Comparación de dos medias
+
+:::{#exr-interpretacion-power-posing}
+En 2010, Carney, Cuddy y Yap publicaron un estudio con unas $40$ personas en el que mantener dos minutos una "postura de poder" subía la testosterona, bajaba el cortisol y aumentaba la tolerancia al riesgo, frente a una postura sumisa. La charla TED de Amy Cuddy (2012) superó las decenas de millones de visualizaciones. Una replicación con $200$ personas no encontró efecto en hormonas ni conducta, y en 2016 la coautora Dana Carney declaró públicamente que no cree que el efecto sea real. Fuentes: [Scientific American](https://www.scientificamerican.com/podcast/episode/power-poses-dont-stand-up), [The National](https://www.thenationalnews.com/uae/rise-of-the-zombie-facts-1.66288), [Big Think](https://develop-plus.bigthink.com/?p=52729).
+
+a. Plantear el contraste de hipótesis del estudio original para la testosterona.
+
+a. ¿Por qué un único estudio pequeño con un p-valor cercano a $0.05$ debe considerarse una pista y no una prueba?
+
+a. ¿Por qué la replicación es más fiable que el estudio original?
+
+a. ¿Qué preguntas debería hacerse un periodista antes de cubrir un estudio con $40$ participantes?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Llamando $\mu_1$ y $\mu_2$ a las medias de testosterona tras la postura de poder y tras la postura sumisa, se trata de un contraste de comparación de medias de dos poblaciones independientes: $H_0: \mu_1=\mu_2$ frente a $H_1: \mu_1>\mu_2$.
+
+a. Con muestras pequeñas el contraste tiene poca potencia, y los resultados significativos que se obtienen tienden a sobrestimar el efecto o a ser falsos positivos. Un p-valor cercano a $0.05$ indica que los datos serían algo raros si $H_0$ fuera cierta, pero no mucho. Además, los resultados significativos se publican y difunden más que los no significativos (sesgo de publicación).
+
+a. Porque tiene una muestra cinco veces mayor, lo que reduce el error típico de la diferencia de medias y aumenta la potencia del contraste. Si el efecto existiera con el tamaño del estudio original, la replicación tendría una probabilidad alta de detectarlo. En la replicación la postura sí hacía que la gente dijera sentirse más poderosa, pero no cambiaba hormonas ni conducta.
+
+a. ¿Cuántos participantes hay?, ¿cuál es el tamaño del efecto y su intervalo de confianza?, ¿se ha replicado?, ¿cuántas variables se midieron?, ¿estaba el análisis registrado de antemano? Presentar un único estudio pequeño como "la ciencia demuestra" es un error frecuente.
+:::
+
+:::{#exr-interpretacion-pisa}
+Cada edición de PISA genera titulares que ordenan países y comunidades autónomas por su puntuación media. Ya en 2007, un [artículo en El País](https://www.uv.es/valerop/Docencia/Anadatos/Introduccion/interpretacionPISA.pdf) advertía de que muchas diferencias entre comunidades son atribuibles al error de muestreo.
+
+Supongamos que la comunidad A obtiene una puntuación media de $485$ puntos con un error típico de $3.5$ y la comunidad B obtiene $479$ puntos con un error típico de $4$.
+
+a. Plantear el contraste adecuado para decidir si las dos comunidades tienen distinta puntuación media.
+
+a. Calcular el estadístico de contraste y el p-valor. ¿Está justificado el titular "A supera a B"?
+
+a. Si la diferencia fuera significativa, ¿se podría atribuir a la política educativa del gobierno de la comunidad A?
+
+a. En PISA 2025, de los $2545$ alumnos catalanes seleccionados, $591$ fueron excluidos y la OCDE decidió que los resultados de Cataluña no son comparables ([Diari de Tarragona](https://www.diaridetarragona.com/catalunya/266692/catalunya-queda-fuera-pruebas-pisa-incidencia-tecnica.html), [Menorca.info](https://www.menorca.info/actualidad/nacional/2026/07/29/2679357/ministerio-alerto-generalitat-errores-tecnicos-pruebas-pisa-2025.html)). ¿Qué porcentaje de la muestra se excluyó? ¿Se resolvería el problema aumentando el número de alumnos?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Llamando $\mu_A$ y $\mu_B$ a las puntuaciones medias de las dos comunidades, $H_0: \mu_A=\mu_B$ frente a $H_1: \mu_A\neq\mu_B$.
+
+a. El error típico de la diferencia es $\sqrt{3.5^2+4^2}\approx 5.32$, y el estadístico es $z=6/5.32\approx 1.13$, con p-valor $2P(Z>1.13)\approx 0.26$. No se rechaza la hipótesis nula: las dos comunidades no se distinguen estadísticamente y el titular no está justificado. La OCDE y el Ministerio publican intervalos de confianza y tablas de comparaciones significativas precisamente para evitar este error.
+
+a. No. PISA es un estudio observacional, no un experimento, y las comunidades difieren en muchos otros factores (renta, nivel educativo de las familias, inmigración, etc.). Un contraste significativo muestra una diferencia, no su causa.
+
+a. Se excluyó el $591/2545\approx 23.2$% de la muestra. Aumentar el número de alumnos no lo arregla, porque no es un problema de error de muestreo sino de sesgo de selección: si los excluidos son distintos de los que hacen la prueba, la estimación estará sesgada sea cual sea el tamaño de la muestra.
+:::
+
+## ANOVA y comparaciones múltiples
+
+:::{#exr-interpretacion-efecto-mozart}
+En 1993, Frances Rauscher publicó en *Nature* un experimento con $36$ universitarios divididos en tres condiciones: $10$ minutos de una sonata de Mozart, instrucciones de relajación o silencio. Después hicieron tareas de razonamiento espacial. Los que escucharon Mozart puntuaron más alto, pero el efecto duró unos $10$–$15$ minutos. En 1998, el gobernador de Georgia presupuestó $105000$ dólares para regalar discos de música clásica a cada recién nacido. Fuentes: [Chequeado](https://chequeado.com/mitos-y-enganos/mozart/), [NPR](https://www.npr.org/2010/06/28/128104580/mozart-effect-was-just-what-we-wanted-to-hear), [Scientific American](https://www.scientificamerican.com/article/fact-or-fiction-babies-ex/).
+
+a. Plantear el contraste de hipótesis adecuado.
+
+a. Si se rechaza la hipótesis nula, ¿se puede concluir que el grupo de Mozart es el que puntúa más alto?
+
+a. ¿A qué población se pueden generalizar los resultados? ¿Está justificado el titular "Mozart hace más inteligentes a los bebés"?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Es un ANOVA de un factor con tres niveles. Llamando $\mu_1$, $\mu_2$ y $\mu_3$ a las puntuaciones medias en razonamiento espacial tras escuchar Mozart, relajación y silencio, $H_0: \mu_1=\mu_2=\mu_3$ frente a $H_1$: al menos una media es distinta.
+
+a. No directamente. El ANOVA solo indica que al menos una media es distinta; para saber qué grupos difieren hacen falta comparaciones posteriores (por ejemplo, el método de Tukey o de Bonferroni).
+
+a. Solo a universitarios y a una tarea espacial concreta, durante unos minutos tras escuchar la música. No se midió la inteligencia y no participaron niños, así que el titular no está justificado. Un análisis de la cobertura mostró que al año siguiente del estudio el $80$% de las noticias mencionaba que eran universitarios, pero a partir de 2000 solo el $30$% ([McGill Office for Science and Society](https://www.mcgill.ca/oss/node/9857)): la población estudiada desaparece de la noticia.
+:::
+
+:::{#exr-interpretacion-chocolate-adelgaza}
+En 2015, el periodista John Bohannon, haciéndose pasar por investigador de un instituto inventado, publicó un estudio en una revista sin revisión real. Dividió a unas $16$ personas en tres grupos: dieta baja en carbohidratos, la misma dieta con chocolate negro y control. El grupo del chocolate perdió peso más rápido, con un resultado "significativo", y la noticia la publicaron medios de varios países. Los datos eran reales, pero se midieron muchas variables (peso, colesterol, sueño, bienestar y otras) en muy pocas personas, y se publicó la que salió significativa. Fuentes: [Bangor Daily News](https://www.bangordailynews.com/2015/05/28/news/journalist-tests-media-on-false-study-touting-chocolate-makes-you-thin/), [NPR vía NHPR](https://www.nhpr.org/national/2015-05-29/trickster-journalist-explains-why-he-duped-the-media-on-chocolate-study), [io9](https://io9.gizmodo.com/i-fooled-millions-into-thinking-chocolate-helps-weight-1707251800).
+
+a. Plantear el contraste de hipótesis para la pérdida de peso.
+
+a. Supongamos que se miden $18$ variables independientes y que en ninguna de ellas hay un efecto real. Si se contrasta cada una con un nivel de significación del $5$%, ¿cuál es la probabilidad de que al menos una salga significativa?
+
+a. ¿Por qué se utiliza un ANOVA en lugar de hacer varios contrastes t por parejas?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. ANOVA de un factor con tres niveles: $H_0$: las tres medias de pérdida de peso son iguales, frente a $H_1$: al menos una es distinta.
+
+a. La probabilidad de que ninguna salga significativa es $0.95^{18}$, así que la probabilidad de que al menos una salga significativa por azar es $1-0.95^{18}\approx 0.60$. Con tantas variables, encontrar algún resultado "significativo" es más probable que no encontrarlo. Con tan pocos participantes y tantas variables, un resultado significativo aislado no es evidencia.
+
+a. Por el mismo motivo: cada contraste t tiene una probabilidad $\alpha$ de cometer un error de tipo I, y al hacer varios la probabilidad de cometer al menos uno crece. El ANOVA contrasta todas las medias a la vez con un nivel de significación global $\alpha$. Por la misma razón, ante un estudio siempre hay que preguntar cuántas variables se midieron.
+:::
+
+## Intervalos de confianza y más comparaciones
+
+:::{#exr-interpretacion-brecha-salarial}
+Según la Encuesta Anual de Estructura Salarial 2024 del INE, las mujeres ganaron de media $26904.90$ € al año y los hombres $32057.55$ €. La mayoría de medios tituló que la brecha salarial es del $16.1$%, mientras que UGT, con los datos de 2023, la expresaba diciendo que el salario medio de las mujeres tendría que subir un $18.7$% para igualar al de los hombres. El salario medio fue de $29540$ €, el mediano de $24497$ € y el más frecuente de $16520$ €. Fuentes: [elDiario.es](https://www.eldiario.es/1_ca4a6c), [Infocop](https://www.infocop.es/la-brecha-salarial-entre-hombres-y-mujeres-persiste-en-espana-ellas-ganan-de-media-un-161-menos-segun-el-ine/), [Artículo14](https://www.articulo14.es/economia/por-cada-euro-que-gana-un-hombre-una-mujer-percibe-84-centimos-20250529.html), [INE](https://www.ine.es/uc/u9g3Py8t).
+
+a. Plantear el contraste de hipótesis adecuado. ¿Qué cabe esperar del resultado, teniendo en cuenta el tamaño de la muestra de la encuesta?
+
+a. Calcular la brecha salarial de 2024 dividiendo la diferencia entre el salario de los hombres y entre el de las mujeres. ¿Se contradicen las dos cifras?
+
+a. ¿Es correcto titular "las mujeres cobran un $16$% menos por el mismo trabajo"?
+
+a. ¿Qué indica que la media sea mucho mayor que la mediana y que la moda?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Llamando $\mu_1$ y $\mu_2$ a los salarios medios de mujeres y hombres, $H_0: \mu_1=\mu_2$ frente a $H_1: \mu_1<\mu_2$. Con una muestra tan grande la diferencia es claramente significativa; lo interesante es cómo se cuenta.
+
+a. Dividiendo entre el salario de los hombres: $\frac{32057.55-26904.90}{32057.55}\approx 0.161$, es decir, un $16.1$%. Dividiendo entre el de las mujeres: $\frac{32057.55-26904.90}{26904.90}\approx 0.192$, es decir, un $19.2$%. Las dos cifras son ciertas y no se contradicen; simplemente usan distinto denominador.
+
+a. No. Es una brecha no ajustada: compara las medias globales de todos los hombres y todas las mujeres, no de personas con el mismo puesto, jornada y experiencia.
+
+a. Que la distribución de los salarios es muy asimétrica a la derecha: unos pocos sueldos muy altos tiran de la media hacia arriba. La mediana es una medida más representativa del salario típico.
+:::
+
+:::{#exr-interpretacion-ene-covid}
+El 6 de julio de 2020, el Ministerio de Sanidad y el Instituto de Salud Carlos III presentaron los resultados finales del estudio de seroprevalencia ENE-COVID: un $5$% de la población tenía anticuerpos. Participaron $68296$ personas. En siete provincias del centro, incluida Madrid, la seroprevalencia superó el $10$%; en Pontevedra fue del $2.1$%. El estudio excluía a la población institucionalizada, como las residencias. Fuentes: [Ministerio de Sanidad](https://www.sanidad.gob.es/gl/gabinete/notasPrensa.do?id=4994), [Vigo e](https://www.vigoe.es/?p=239097), [Cochrane](https://es.cochrane.org/es/prevalencia-de-sars-cov-2-en-espa%C3%B1a).
+
+a. Calcular el margen de error del $95$% de la seroprevalencia nacional, suponiendo muestreo aleatorio simple.
+
+a. Supongamos que en Pontevedra se analizaron $1000$ personas. Calcular el margen de error de su seroprevalencia y compararlo con el nacional.
+
+a. Plantear el contraste para decidir si la seroprevalencia varía entre provincias.
+
+a. ¿Es correcto decir que el $5$% de la población española es inmune?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. $1.96\sqrt{\frac{0.05\cdot 0.95}{68296}}\approx 0.0016$, es decir, unos $0.16$ puntos porcentuales. En la práctica el margen es algo mayor por el diseño muestral (muestreo por conglomerados), pero sigue siendo muy pequeño.
+
+a. $1.96\sqrt{\frac{0.021\cdot 0.979}{1000}}\approx 0.0089$, es decir, casi $0.9$ puntos porcentuales, unas cinco veces el margen nacional. Los intervalos provinciales son mucho más anchos porque cada provincia tiene menos muestra, por lo que comparar dos provincias con poca muestra sin mirar sus intervalos puede llevar a conclusiones erróneas.
+
+a. Es una comparación de muchas proporciones a la vez: $H_0$: la seroprevalencia es igual en todas las provincias, frente a $H_1$: al menos una es distinta. Se resuelve con un contraste chi-cuadrado de homogeneidad, el equivalente del ANOVA para proporciones.
+
+a. No. Los anticuerpos detectados no equivalen necesariamente a inmunidad. Además, la población estudiada excluía a la población institucionalizada, así que la estimación no es aplicable a las residencias.
+:::
+
+:::{#exr-interpretacion-predimed}
+En 2013, el *New England Journal of Medicine* publicó PREDIMED, un ensayo con $7447$ personas de alto riesgo cardiovascular repartidas en tres grupos: dieta mediterránea con aceite de oliva virgen extra, dieta mediterránea con frutos secos y dieta control baja en grasa. La prensa lo destacó como prueba de que la dieta mediterránea reduce un $30$% los infartos, ictus y muertes cardiovasculares. En términos absolutos, la reducción era de unos $3$ eventos por cada $1000$ personas y año. En 2018 la revista retiró el artículo por problemas en la aleatorización de $1588$ participantes y publicó un reanálisis con conclusiones más prudentes. Fuentes: [IntraMed](https://www.intramed.net/content/hoja-de-ruta-nutricional), [Salud y Fármacos](https://www.saludyfarmacos.org/?p=53833), [Harvard Nutrition Source](https://nutritionsource.hsph.harvard.edu/2018/06/22/predimed-retraction-republication), [BMJ](https://blogs.bmj.com/bmj/2018/06/22/hilda-bastian-a-mediterranean-diet-trials-retraction-and-republication-leaves-a-trail-of-questions/).
+
+a. Plantear el contraste de hipótesis adecuado.
+
+a. ¿Cuántas personas tendrían que seguir la dieta mediterránea durante un año para evitar un evento cardiovascular?
+
+a. ¿Por qué es tan importante la aleatorización para poder hablar de causalidad?
+
+a. El problema se detectó porque un anestesista británico comprobó que los grupos eran demasiado distintos al inicio para haberse formado al azar. ¿Qué contraste de hipótesis estaba haciendo?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Llamando $p_1$, $p_2$ y $p_3$ a las tasas de eventos cardiovasculares en los tres grupos, $H_0: p_1=p_2=p_3$ frente a $H_1$: al menos una es distinta. En la práctica se compara cada dieta mediterránea con la dieta control.
+
+a. Si la dieta evita $3$ eventos por cada $1000$ personas y año, hacen falta unas $1000/3\approx 333$ personas siguiendo la dieta durante un año para evitar un evento. El $30$% es una reducción relativa que, sin el riesgo absoluto, exagera el efecto percibido.
+
+a. Porque al asignar a las personas al azar, los grupos solo difieren, salvo por azar, en la dieta, y cualquier diferencia significativa puede atribuirse a ella. Cuando la aleatorización falla, puede haber otras diferencias entre los grupos y la conclusión pasa de "reduce" a "se asocia con". El reanálisis mantuvo un efecto, pero con menos certeza sobre su causalidad; tan erróneo era el titular de 2013 como decir en 2018 que "el estudio era falso".
+
+a. Un contraste de homogeneidad de las características iniciales de los grupos: $H_0$: los grupos proceden de la misma población (se formaron al azar), frente a $H_1$: no proceden de la misma población. Unas diferencias iniciales demasiado grandes (o demasiado pequeñas) para ser fruto del azar llevan a rechazar $H_0$.
+:::
+
+:::{#exr-interpretacion-egm}
+Cada ola del Estudio General de Medios (EGM) genera titulares sobre quién gana o pierde oyentes, y sobre posibles "sorpassos" entre programas separados por poco más de $100000$ oyentes. Cada ola se basa en unas $25000$ encuestas, mientras que el acumulado anual se basa en unas $80000$. En Lanzarote, el EGM hizo $48$ entrevistas en una ola de 2026. Fuentes: [Vozpópuli](https://www.vozpopuli.com/espana/grandes-comunicadores-radio-mejor-audiencia-historica.html), [ESdiario](https://www.esdiario.com/chismografo/medios/240424/132393/alarma-ser-aimar-bretos-cope.html), [La Voz de Lanzarote](https://www.lavozdelanzarote.com/en/ekonomus/eko/the-joke-of-the-egm-in-lanzarote-is-accentuated_242821_102.html).
+
+a. Plantear el contraste para decidir si un programa supera a otro en audiencia.
+
+a. Supongamos que un programa lo escucha el $5$% de una población de unos $40$ millones de personas. Calcular, con muestreo aleatorio simple, el margen de error del $95$% de su audiencia en una ola, en puntos porcentuales y en número de oyentes.
+
+a. ¿Está justificado el titular "X gana $50000$ oyentes" entre dos olas?
+
+a. Calcular el margen de error máximo de una proporción estimada con las $48$ entrevistas de Lanzarote. ¿Sirven esos datos para comparar emisoras en la isla?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Llamando $p_1$ y $p_2$ a las proporciones de población que escuchan cada programa, $H_0: p_1=p_2$ frente a $H_1: p_1\neq p_2$.
+
+a. $1.96\sqrt{\frac{0.05\cdot 0.95}{25000}}\approx 0.0027$, es decir, $0.27$ puntos porcentuales, que equivalen a $0.0027\cdot 40000000\approx 108000$ oyentes. Una diferencia de poco más de $100000$ oyentes entre dos programas está dentro del margen de error de una ola.
+
+a. No. Una variación de $50000$ oyentes es menor que el margen de error de cada ola y es compatible con que la audiencia no haya cambiado. Que todas las cadenas "saquen pecho" tras cada ola es una buena pista de que las diferencias son pequeñas.
+
+a. $1.96\sqrt{\frac{0.25}{48}}\approx 0.141$, es decir, $\pm 14$ puntos porcentuales. Con una muestra tan pequeña los resultados no sirven para comparar emisoras.
+:::
+
+:::{#exr-interpretacion-cis-23j}
+La ficha técnica del barómetro preelectoral del CIS para las elecciones generales de julio de 2023 indicaba un error muestral de $\pm 0.6$ puntos para el conjunto de la muestra, en el supuesto de muestreo aleatorio simple con $p=q=0.5$ y un nivel de confianza del $95$%. La última estimación del CIS daba al PSOE un $32.2$% y al PP un $30.8$%; el resultado fue PP $33.05$% y PSOE $31.7$%. Fuentes: [Vozpópuli](https://www.vozpopuli.com/espana/elecciones-generales-2023/encuesta-cis-elecciones-generales-23j-pp-vox.html), [Onda Vasca](https://www.ondavasca.com/tezanos-tras-el-23j-todas-las-encuestas-fallaron-menos-el-cis/), [The Objective](https://theobjective.com/espana/politica/2023-07-23/fracaso-historico-encuestas-cis/), [El Independiente](https://www.elindependiente.com/espana/2024/02/11/la-querencia-de-tezanos-a-infravalorar-al-pp-el-otro-examen-del-18-f-en-galicia/amp/).
+
+a. ¿Qué tamaño muestral corresponde a un error de $\pm 0.6$ puntos?
+
+a. Construir los intervalos de confianza del $95$% para la intención de voto de PP y PSOE. ¿Contienen el resultado real?
+
+a. ¿Qué indica que el resultado del PP quede tan lejos del intervalo?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Despejando de $1.96\sqrt{0.25/n}=0.006$ se obtiene $n=\frac{1.96^2\cdot 0.25}{0.006^2}\approx 26678$ personas.
+
+a. Con $n=26678$, el margen para el PP es $1.96\sqrt{\frac{0.308\cdot 0.692}{26678}}\approx 0.0055$, y el intervalo es $(30.25\%, 31.35\%)$, que no contiene el $33.05$% real. Para el PSOE el margen es también de unos $0.56$ puntos y el intervalo $(31.64\%, 32.76\%)$ sí contiene, por poco, el $31.7$% real.
+
+a. La desviación en el PP (más de $2$ puntos) fue muy superior al margen de la ficha técnica. El margen de error solo cubre el error de muestreo aleatorio; no incluye la no respuesta, el voto oculto, los cambios de última hora ni el modelo de estimación, que suelen pesar más. Por eso no debe tratarse el margen de la ficha técnica como la precisión real de una encuesta. Tampoco conviene juzgar a un instituto por una sola elección: lo instructivo es comparar la desviación de todas las encuestas con su margen declarado (varias encuestas privadas también fallaron, en la otra dirección).
+:::
+
+## Contrastes chi-cuadrado
+
+:::{#exr-interpretacion-loteria-navidad}
+Cada diciembre los medios publican qué terminaciones han salido más en el Gordo de la Lotería de Navidad. Según los datos de Loterías y Apuestas del Estado, el $5$ ha sido la terminación del Gordo en $32$ ocasiones y el $1$ solo en $8$. Algunos medios titulan que "los décimos terminados en cinco tienen más probabilidades de acierto". Fuentes: [Público](https://www.publico.es/sociedad/loteria-navidad-2023-numero-veces-terminado-gordo.html), [Diari de Tarragona](https://www.diaridetarragona.com/internacional/104016/estadistica-y-supersticion-mitos-en-la-loteria-20191220-0052-fsdt201912200052.html), [Reason Why](https://www.reasonwhy.es/actualidad/sociedad-y-consumo/loteria-de-navidad-curiosidades-cifras-y-consumo-2014-12-19).
+
+a. Plantear el contraste adecuado para decidir si todas las terminaciones son igual de probables. ¿Cuántos grados de libertad tiene el estadístico?
+
+a. ¿Es correcto decir que el $5$ tiene más probabilidades de salir?
+
+a. Un medio destaca que el Gordo nunca ha terminado en $25$. ¿Por qué no es un dato sorprendente?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Es un contraste chi-cuadrado de bondad de ajuste con $10$ categorías (terminaciones de $0$ a $9$). $H_0$: cada terminación tiene probabilidad $1/10$, frente a $H_1$: alguna terminación tiene una probabilidad distinta. Las frecuencias esperadas son el número total de sorteos dividido entre $10$, y el estadístico tiene $10-1=9$ grados de libertad (el valor crítico al $5$% es $\chi^2_{9}(0.95)=16.92$).
+
+a. No. Confunde frecuencia observada con probabilidad. Con unos dos siglos de sorteos es normal que unas terminaciones hayan salido más que otras por puro azar. Y aunque el contraste diera significativo, describiría el pasado: cada sorteo es independiente y el bombo no recuerda resultados anteriores.
+
+a. Porque es el resultado de buscar el dato más llamativo entre muchísimas combinaciones (terminaciones de una, dos y tres cifras, números completos, ciudades, etc.). Con tantas comparaciones siempre aparece alguna "rareza" por azar, que es el problema de las comparaciones múltiples.
+:::
+
+:::{#exr-interpretacion-futbolistas-enero}
+[Maldita.es](https://maldita.es/malditodato/20221130/mundial-catar-edad-relativa-enero-futbolistas/) analizó las fechas de nacimiento de los jugadores del Mundial de Catar 2022: el $11.70$% nació en enero y el $7.36$% en diciembre; el $32.21$% en el primer trimestre frente al $20.87$% en el último. Un [estudio con 5748 jugadores](https://portalcientifico.unileon.es/documentos/5f94cd182999521ddf0ba2c0?lang=es) del fútbol profesional español (2011–2016) encontró el mismo patrón.
+
+a. Plantear el contraste adecuado para decidir si los futbolistas profesionales nacen repartidos a lo largo del año igual que el resto de la población.
+
+a. Un estudiante propone usar un $25$% por trimestre como frecuencia relativa esperada. ¿Es correcto?
+
+a. Si el contraste resulta significativo, ¿se puede concluir que nacer en enero hace mejor futbolista?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Es un contraste chi-cuadrado de bondad de ajuste con $4$ categorías (trimestres). $H_0$: la distribución por trimestre de los nacimientos de los futbolistas es igual a la de los nacimientos de la población, frente a $H_1$: es distinta. Con miles de jugadores, una diferencia de un $32$% frente a un $21$% es claramente significativa.
+
+a. No exactamente. Los nacimientos no se reparten por igual a lo largo del año, de modo que la referencia correcta para calcular las frecuencias esperadas es la distribución de los nacimientos de la población.
+
+a. No. Es el llamado efecto de la edad relativa: en las categorías infantiles, los nacidos a principios de año son casi un año mayores que algunos compañeros y tienen ventaja física, así que los clubes los seleccionan antes. El efecto está en el proceso de selección, no en el mes de nacimiento.
+:::
+
+:::{#exr-interpretacion-sexo-voto}
+[elDiario.es](https://www.eldiario.es/politica/vox-reduciria-resultados-electorales-votaran_1_1608493.html) analizó un barómetro del CIS desagregado por sexo. Solo el $2.5$% de las mujeres decía que votaría a Vox, frente al $5.2$% de los hombres. Un politólogo lo resumía así: "dos de cada tres votantes de Vox son hombres".
+
+a. Plantear el contraste adecuado para decidir si el voto depende del sexo.
+
+a. Suponiendo que en la muestra hay el mismo número de hombres que de mujeres, comprobar que dos de cada tres votantes de Vox son hombres.
+
+a. ¿Dicen lo mismo las frases "el $5.2$% de los hombres vota a Vox" y "dos de cada tres votantes de Vox son hombres"? ¿Es correcto concluir que la mayoría de los hombres vota a Vox?
+
+a. Si se rechaza la hipótesis nula, ¿se puede concluir que el sexo causa el voto?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Es un contraste chi-cuadrado de independencia en una tabla de contingencia sexo × partido. $H_0$: sexo y voto son independientes, frente a $H_1$: no son independientes.
+
+a. Si hay $n$ hombres y $n$ mujeres, votarían a Vox $0.052n$ hombres y $0.025n$ mujeres, de modo que la proporción de hombres entre los votantes de Vox es $\frac{0.052}{0.052+0.025}\approx 0.675$, es decir, aproximadamente dos de cada tres.
+
+a. No. Las dos frases salen de la misma tabla leída en dos direcciones: "el $5.2$% de los hombres vota a Vox" es un porcentaje por filas, $P(\text{Vox}|\text{hombre})$, y "dos de cada tres votantes de Vox son hombres" es un porcentaje por columnas, $P(\text{hombre}|\text{Vox})$. Ambas son ciertas. Decir que la mayoría de los hombres vota a Vox sería falso: confunde las dos probabilidades condicionadas.
+
+a. No. El contraste solo muestra que hay asociación entre las variables. Puede haber otras variables, como la edad, detrás de la relación.
+:::
+
+## Correlación
+
+:::{#exr-interpretacion-calor-virus}
+El 14 de abril de 2020, la AEMET y el Instituto de Salud Carlos III publicaron resultados preliminares que comparaban, en las $17$ comunidades autónomas, la incidencia acumulada de COVID-19 con la temperatura media entre el 26 de marzo y el 5 de abril. Encontraron una correlación negativa: a menor temperatura, mayor incidencia. Telecinco tituló "Fin al misterio: el tiempo influye en el coronavirus, a más calor, menos virus". Ese mismo año, un análisis por provincias que tenía en cuenta la densidad de población, la edad y otros factores no encontró evidencia de que el calor redujera los casos. Fuentes: [AEMET](https://aemetblog.es/2020/04/14/primeros-indicios-de-correlacion-entre-variables-meteorologicas-y-propagacion-de-la-enfermedad-covid19-y-del-virus-sars-cov-2-en-espana/), [Última Hora](https://www.ultimahora.es/noticias/nacional/2020/04/14/1157019/coronavirus-espana-menos-temperatura-mayor-incidencia-covid-19.html), [Telecinco](https://telecinco.es/noticias/ciencia-y-tecnologia/temperaturas-contagios-coronavirus_18_2930820286.html), [Briz-Redón y Serrano-Aroca (2020)](https://expeditiorepositorio.utadeo.edu.co/items/b359a00b-b4c2-4060-8a94-a983356058a6).
+
+a. Plantear el contraste de correlación.
+
+a. Sabiendo que el estadístico $t=\frac{r\sqrt{n-2}}{\sqrt{1-r^2}}$ sigue una distribución $t(n-2)$ bajo $H_0$, calcular a partir de qué valor de $|r|$ la correlación es significativa al $5$% con $17$ comunidades.
+
+a. ¿Está justificado el titular de Telecinco?
+
+a. ¿Se pueden sacar conclusiones sobre el riesgo de contagio de las personas a partir de datos agregados por comunidad?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Llamando $\rho$ al coeficiente de correlación poblacional entre temperatura e incidencia, $H_0: \rho=0$ frente a $H_1: \rho\neq 0$ (o $H_1: \rho<0$ si se espera que el calor reduzca la incidencia).
+
+a. Con $n-2=15$ grados de libertad, el valor crítico es $t_{15}(0.975)=2.131$. Despejando $r$ de $t=\frac{r\sqrt{15}}{\sqrt{1-r^2}}$ se obtiene $|r|=\frac{t}{\sqrt{t^2+15}}=\frac{2.131}{\sqrt{2.131^2+15}}\approx 0.48$. Con tan pocas unidades hace falta una correlación moderadamente fuerte para que sea significativa, pero aun así puede salir significativa sin ser causal.
+
+a. No. Presenta una correlación preliminar, con $17$ comunidades y $11$ días, como una causa demostrada. Las comunidades más frías del centro peninsular, como Madrid y las dos Castillas, eran también las que tenían más conexiones y donde el virus llegó antes. Un titular más correcto sería, por ejemplo, "Las comunidades más frías tuvieron más incidencia en las primeras semanas, aunque no se sabe si el clima influye".
+
+a. No. Pasar de datos por comunidad a conclusiones sobre personas es la falacia ecológica.
+:::
+
+:::{#exr-interpretacion-renta-esperanza-vida}
+En Barcelona, en 2022, la esperanza de vida al nacer era de $87.67$ años en Pedralbes y de $77.66$ en Vallbona, dos barrios separados por $14$ km. En general, los barrios con más renta tienen mayor esperanza de vida. Fuentes: [Vozpópuli](https://www.vozpopuli.com/bienestar/estos-son-los-barrios-de-barcelona-donde-hay-mas-esperanza-de-vida-segun-los-cientificos.html), [Observatorio de Bioética y Derecho (UB)](https://www.bioeticayderecho.ub.edu/en/node/7425), [Gaceta Sanitaria](https://doaj.org/article/f0bcbb7f722549a8a5ad0738fcc65de0).
+
+a. Plantear el contraste de correlación, tomando cada barrio como una observación.
+
+a. ¿Es correcto concluir que si se sube la renta de un barrio su población vivirá más?
+
+a. ¿Es correcto concluir que cualquier persona de Pedralbes vivirá más que cualquier persona de Vallbona?
+
+a. Tanto esta correlación como la del ejercicio anterior se calculan por zonas geográficas. ¿Por qué esta se considera sólida y la otra no?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. Llamando $\rho$ al coeficiente de correlación entre la renta media y la esperanza de vida de los barrios, $H_0: \rho=0$ frente a $H_1: \rho>0$.
+
+a. No. Correlación no implica causalidad. Detrás de la renta hay otras variables que también influyen en la esperanza de vida: tipo de empleo, contaminación, acceso a la salud o hábitos de vida.
+
+a. No. Aplicar a individuos una relación observada entre barrios es la falacia ecológica. Además, en barrios con poca población la esperanza de vida estimada es muy variable.
+
+a. Por el número de unidades (muchos barrios frente a $17$ comunidades), el periodo observado (años frente a $11$ días), la coherencia con otros muchos estudios y la plausibilidad de los mecanismos que la explican.
+:::
+
+:::{#exr-interpretacion-chocolate-nobel}
+En 2012, el cardiólogo Franz Messerli publicó en el *New England Journal of Medicine* una correlación muy fuerte ($r=0.791$, $p<0.0001$) entre el consumo de chocolate por habitante y el número de premios Nobel por cada $10$ millones de habitantes en $23$ países. Messerli lo planteó con ironía, pero varios medios lo titularon como si el chocolate produjera premios Nobel. Un despacho de abogados lo explicaba diciendo que $p<0.0001$ significa que la probabilidad de que sea un resultado aleatorio es menor de una entre diez mil. Fuentes: [Popular Science](https://www.popsci.com/science/article/2012-10/nations-chocolate-intake-directly-correlated-number-nobel-laureates-it-spawns-not-really), [SWI swissinfo.ch](https://www.swissinfo.ch/eng/sci-tech/does-chocolate-help-you-win-a-nobel-prize/33704568), [NEJM](https://blogs.nejm.org/cardioexchange/2012/10/10/chocolate-and-nobel-prizes-linked/), [Confectionery News](https://www.confectionerynews.com/Regulation-Safety/Eating-chocolate-produces-Nobel-prize-winners-says-study).
+
+a. Calcular el estadístico del contraste $H_0: \rho=0$ y comprobar que el p-valor es menor que $0.0001$.
+
+a. ¿Qué porcentaje de la variabilidad del número de premios Nobel explica el consumo de chocolate?
+
+a. ¿Es correcta la interpretación del p-valor del despacho de abogados?
+
+a. ¿Qué tercera variable puede explicar la correlación?
+:::
+
+:::{.callout-tip collapse="true"}
+## Solución
+a. $t=\frac{0.791\sqrt{21}}{\sqrt{1-0.791^2}}\approx 5.92$ y el p-valor es $2P(t(21)>5.92)\approx 7\cdot 10^{-6}<0.0001$.
+
+a. El coeficiente de determinación es $r^2=0.791^2\approx 0.626$, es decir, un $62.6$%. Pero que una variable "explique" estadísticamente la variabilidad de otra no significa que la cause.
+
+a. No. El p-valor mide lo raros que serían los datos si $H_0$ fuera cierta, es decir, la probabilidad de obtener una correlación tan fuerte como la observada si no hubiera correlación en la población. No es la probabilidad de que $H_0$ sea cierta ni la probabilidad de que el resultado sea "casualidad". Es la interpretación errónea más extendida del p-valor.
+
+a. La riqueza del país, que se asocia tanto con el consumo de chocolate como con la inversión en educación e investigación. Correlación no implica causalidad.
+:::

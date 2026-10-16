@@ -35,6 +35,7 @@ book:
     - index.qmd
     - 06-estimacion.qmd
     - 07-contrastes-parametricos.qmd
+    - 08-interpretacion-inferencia.qmd
     
 #bibliography: references.bib
 
